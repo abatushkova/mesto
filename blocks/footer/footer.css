@@ -1,0 +1,15 @@
+@import './__copyright/footer__copyright.css';
+
+.footer {
+  width: calc(100% - 2.375rem);
+  max-width: 55.125rem;
+  margin: 0 auto;
+  padding: 3rem 0 2.25rem;
+}
+
+@media screen and (min-width: 768px) {
+  .footer {
+    padding-top: 4.125rem;
+    padding-bottom: 3.75rem;
+  }
+}
