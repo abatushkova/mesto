@@ -8,14 +8,14 @@
   flex-flow: column wrap;
   align-items: center;
   justify-content: flex-start;
-  margin: 2.625rem 0 2.25rem;
+  margin-bottom: 2.25rem;
   text-align: center;
 }
 
 @media screen and (min-width: 768px) {
   .profile {
     flex-direction: row;
-    margin: 2.5rem 0 3.1875rem ;
+    margin-bottom: 3.1875rem ;
     text-align: left;
   }
 }
