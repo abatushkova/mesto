@@ -1,0 +1,13 @@
+.profile__name {
+  display: inline-block;
+  margin: 0;
+  color: #fff;
+  font: 27px/56px 'InterMedium', Arial, sans-serif;
+  font-weight: 500;
+}
+
+@media screen and (min-width: 768px) {
+  .profile__name {
+    font-size: 42px;
+  }
+}
