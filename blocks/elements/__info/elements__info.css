@@ -1,0 +1,10 @@
+.elements__info {
+  display: flex;
+  flex: 1 1 4.9375rem;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 .9375rem 0 1.25rem;
+  box-sizing: border-box;
+}

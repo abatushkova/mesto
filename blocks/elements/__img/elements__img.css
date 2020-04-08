@@ -1,0 +1,7 @@
+.elements__img {
+  flex: 2 2 17.625rem;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
