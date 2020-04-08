@@ -5,4 +5,5 @@
 @import '../blocks/page/page.css';
 @import '../blocks/header/header.css';
 @import '../blocks/container/container.css';
-@import '../blocks/profile/profile.css'
+@import '../blocks/profile/profile.css';
+@import '../blocks/elements/elements.css';
