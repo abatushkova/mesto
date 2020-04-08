@@ -4,7 +4,7 @@
 
 @media screen and (min-width: 768px) {
   .profile__info {
-    flex-basis: calc(100% - 7.5rem - 9.375rem - 1.875rem);
+    width: calc(100% - 7.5rem - 9.375rem - 1.875rem);
     padding-right: 1rem;
     margin: 0 0 0 1.875rem;
     box-sizing: border-box;
