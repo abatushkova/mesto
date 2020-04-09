@@ -27,15 +27,15 @@ buttonClose.addEventListener('click', closePopup);
 const formElement = document.querySelector('#popup-form');
 
 function formSubmitHandler (evt) {
-    evt.preventDefault();
+  evt.preventDefault();
 
-    let avatarAltText = document.querySelector('.profile__avatar');
+  let avatarAltText = document.querySelector('.profile__avatar');
 
-    nameProfile.textContent = nameInput.value;
-    jobProfile.textContent = jobInput.value;
-    avatarAltText.setAttribute('alt', `${nameInput.value}.`);
+  nameProfile.textContent = nameInput.value;
+  jobProfile.textContent = jobInput.value;
+  avatarAltText.setAttribute('alt', `${nameInput.value}.`);
 
-    closePopup();
-  }
+  closePopup();
+}
 
 formElement.addEventListener('submit', formSubmitHandler);
