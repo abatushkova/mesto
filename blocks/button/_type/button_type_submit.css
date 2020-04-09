@@ -1,0 +1,18 @@
+.button_type_submit {
+  width: 100%;
+  height: 3.125rem;
+  border-radius: 2px;
+  background-color: #000;
+  color: #fff;
+  font: 18px/22px 'Inter', Arial, sans-serif;
+  transition: background-color .1s cubic-bezier(.0,.0,.2,1) 0s;
+}
+
+.button_type_submit:focus,
+.button_type_submit:hover {
+  background-color: rgba(0, 0, 0, .8);
+}
+
+.button_type_submit:active {
+  background-color: rgba(0, 0, 0, .6);
+}
