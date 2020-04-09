@@ -17,5 +17,3 @@
 @import '../blocks/popup/popup.css';
 @import '../blocks/popup/_opened/popup_opened.css';
 @import '../blocks/input/input.css';
-@import '../blocks/input/_type/input_type_profile-name.css';
-@import '../blocks/input/_type/input_type_profile-info.css';
