@@ -6,14 +6,12 @@
   background-repeat: no-repeat;
   background-size: 1.25rem 1.125rem;
   background-position: 50% 50%;
-  transition: all .1s cubic-bezier(.0,.0,.2,1) 0s;
-  will-change: opacity;
+  transition: transform .1s cubic-bezier(.0,.0,.2,1) 0s;
 }
 
 .button_type_like:focus,
 .button_type_like:hover {
   transform: scale(1.2);
-  opacity: .6;
 }
 
 .button_type_like:active {

@@ -70,16 +70,17 @@
   <footer class="footer">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
-  <div class="popup popup_opened" id="popup" aria-hidden="true" role="dialog" aria-labelledby="popup-title">
-    <div class="popup__container" id="popup-container" role="document">
+  <div class="popup" aria-hidden="true" role="dialog" aria-labelledby="popup-title">
+    <div class="popup__container" role="document">
       <h2 class="popup__title" id="popup-title">Редактировать профиль</h2>
       <form>
         <input type="text" class="input input_type_profile-name" placeholder="Имя" />
         <input type="text" class="input input_type_profile-info" placeholder="О себе" />
         <button type="submit" class="button button_type_submit popup__save-button" title="Сохранить изменения">Сохранить</button>
       </form>
-      <button class="button button_type_close popup__close-icon" id="modal-close" aria-label="close" title="Закрыть"></button>
+      <button class="button button_type_close popup__close-icon" aria-label="close" title="Закрыть"></button>
     </div>
   </div>
+  <script src="./pages/index.js"></script>
 </body>
 </html>
