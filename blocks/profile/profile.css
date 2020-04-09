@@ -1,7 +1,8 @@
 @import './__avatar/profile__avatar.css';
 @import './__info/profile__info.css';
 @import './__name/profile__name.css';
-@import './__text/profile__text.css';
+@import './__job/profile__job.css';
+@import './__edit-button/profile__edit-button.css';
 
 .profile {
   display: flex;
@@ -9,6 +10,7 @@
   align-items: center;
   justify-content: flex-start;
   margin-bottom: 2.25rem;
+  font-size: 0;
   text-align: center;
 }
 

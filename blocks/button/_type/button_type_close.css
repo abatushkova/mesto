@@ -1,0 +1,19 @@
+.button_type_close {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-image: url('../../../images/button/close.svg');
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: opacity .1s cubic-bezier(.0,.0,.2,1) 0s;
+  will-change: opacity;
+}
+
+.button_type_close:focus,
+.button_type_close:hover {
+  opacity: .6;
+}
+
+.button_type_close:active {
+  opacity: .4;
+}

@@ -1,13 +1,11 @@
 .button_type_edit {
   width: 1.125rem;
   height: 1.125rem;
-  border: 1px solid #fff;
-  background-image: url(../../../images/button/edit.svg);
+  background-image: url(../../../images/button/editor.svg);
   background-color: transparent;
   background-repeat: no-repeat;
-  background-size: 0.625rem .625rem;
-  background-position: 50% 50%;
-  vertical-align: middle;
+  background-size: cover;
+  vertical-align: text-bottom;
   transition: opacity .1s cubic-bezier(.0,.0,.2,1) 0s;
   will-change: opacity;
 }
