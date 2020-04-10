@@ -28,12 +28,15 @@ const formElement = document.querySelector('#popup-form');
 
 function formSubmitHandler (evt) {
   evt.preventDefault();
-
-  let avatarAltText = document.querySelector('.profile__avatar');
-
-  nameProfile.textContent = nameInput.value;
-  jobProfile.textContent = jobInput.value;
-  avatarAltText.setAttribute('alt', `${nameInput.value}.`);
+  
+  if (nameProfile.textContent !== nameInput.value) {
+    nameProfile.textContent = nameInput.value;
+    document.querySelector('.profile__avatar').setAttribute('alt', `${nameInput.value}.`);
+  }
+  
+  if (jobProfile.textContent !== jobInput.value) {
+    jobProfile.textContent = jobInput.value;
+  }
 
   closePopup();
 }
