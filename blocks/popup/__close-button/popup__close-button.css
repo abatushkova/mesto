@@ -10,6 +10,7 @@
   background-color: transparent;
   background-repeat: no-repeat;
   background-size: cover;
+  opacity: 1;
   transition: opacity .1s cubic-bezier(.0,.0,.2,1) 0s;
   will-change: opacity;
   cursor: pointer;
