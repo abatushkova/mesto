@@ -3,6 +3,7 @@
 @import './__name/profile__name.css';
 @import './__job/profile__job.css';
 @import './__edit-button/profile__edit-button.css';
+@import './__add-button/profile__add-button.css';
 
 .profile {
   display: -webkit-box;

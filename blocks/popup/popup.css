@@ -1,7 +1,7 @@
 @import './__container/popup__container.css';
 @import './__title/popup__title.css';
 @import './__save-button/popup__save-button.css';
-@import './__close-icon/popup__close-icon.css';
+@import './__close-button/popup__close-button.css';
 
 .popup {
   position: fixed;
