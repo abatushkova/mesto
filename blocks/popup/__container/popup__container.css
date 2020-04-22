@@ -10,7 +10,7 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  width: calc(100% - 4.5rem);
+  width: calc(100% - 5rem);
   max-width: 26.875rem;
   padding: 1.125rem 1.25rem 1.25rem;
   -webkit-box-sizing: border-box;
