@@ -1,6 +1,7 @@
 const popupWindow = document.querySelector('.popup');
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonClose = document.querySelector('.popup__close-button');
+const buttonLike = document.querySelectorAll('.elements__like-button');
 const nameProfile = document.querySelector('.profile__name');
 const jobProfile = document.querySelector('.profile__job');
 const nameInput = document.querySelector('.popup__input_type_profile-name');
@@ -44,3 +45,9 @@ function formSubmitHandler (evt) {
 buttonEdit.addEventListener('click', togglePopup);
 buttonClose.addEventListener('click', togglePopup);
 formElement.addEventListener('submit', formSubmitHandler);
+
+// activate like-button on click
+buttonLike.forEach(elm => {
+  elm.addEventListener('click', evt => 
+  evt.target.classList.toggle('elements__like-button_active'));
+});
