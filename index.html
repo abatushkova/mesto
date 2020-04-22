@@ -23,7 +23,7 @@
     </section>
     <section class="elements">
       <div class="elements__item">
-        <a href="./images/elements/__img/edinburgh_castle.jpg" class="elements__img-wrapper"><img src="./images/elements/__img/edinburgh_castle.jpg" alt="Эдинбургский замок." class="elements__img"></a>
+        <a href="#" class="elements__img-wrapper"><img src="./images/elements/__img/edinburgh_castle.jpg" alt="Эдинбургский замок" class="elements__img"></a>
         <div class="elements__info">
           <h2 class="elements__title">Эдинбургский замок</h2>
           <button type="button" class="elements__like-button" title="Мне нравится"></button>
@@ -31,7 +31,7 @@
         <button type="button" class="elements__delete-button" title="Удалить"></button>
       </div>
       <div class="elements__item">
-        <img src="./images/elements/__img/golden_gate.jpg" alt="Золотые ворота." class="elements__img">
+        <a href="#" class="elements__img-wrapper"><img src="./images/elements/__img/golden_gate.jpg" alt="Золотые ворота" class="elements__img"></a>
         <div class="elements__info">
           <h2 class="elements__title">Золотые ворота</h2>
           <button type="button" class="elements__like-button" title="Мне нравится"></button>
@@ -39,21 +39,21 @@
         <button type="button" class="elements__delete-button" title="Удалить"></button>
       </div>
       <div class="elements__item">
-        <img src="./images/elements/__img/grinda_island.jpg" alt="Гринда." class="elements__img">
+        <img src="./images/elements/__img/grinda_island.jpg" alt="Гринда" class="elements__img">
         <div class="elements__info">
           <h2 class="elements__title">Гринда</h2>
           <button type="button" class="elements__like-button" title="Мне нравится"></button>
         </div>
       </div>
       <div class="elements__item">
-        <img src="./images/elements/__img/kyoto.jpg" alt="Кинкаку-дзи." class="elements__img">
+        <img src="./images/elements/__img/kyoto.jpg" alt="Кинкаку-дзи" class="elements__img">
         <div class="elements__info">
           <h2 class="elements__title">Кинкаку-дзи</h2>
           <button type="button" class="elements__like-button" title="Мне нравится"></button>
         </div>
       </div>
       <div class="elements__item">
-        <img src="./images/elements/__img/mont-saint-michel.jpg" alt="Мон-Сен-Мишель." class="elements__img">
+        <img src="./images/elements/__img/mont-saint-michel.jpg" alt="Мон-Сен-Мишель" class="elements__img">
         <div class="elements__info">
           <h2 class="elements__title">Мон-Сен-Мишель</h2>
           <button type="button" class="elements__like-button" title="Мне нравится"></button>
@@ -71,8 +71,8 @@
   <footer class="footer">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
-  <div class="popup">
-    <div class="popup__container popup__container_type_profile">
+  <div class="popup popup_type_profile">
+    <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__form" name="profile" method="POST" action="#">
         <input type="text" name="name" class="popup__input popup__input_type_profile-name" placeholder="Имя" />
@@ -85,7 +85,7 @@
   <div class="popup">
     <div class="popup__container">
       <h2 class="popup__title">Новое место</h2>
-      <form class="popup__form" name="место" method="POST" action="#">
+      <form class="popup__form" name="places" method="POST" action="#">
         <input type="text" name="name" class="popup__input popup__input_type_img-name" placeholder="Название" />
         <input type="text" name="src" class="popup__input popup__input_type_img-src" placeholder="Ссылка" />
         <button type="submit" class="popup__save-button">Создать</button>
@@ -93,10 +93,10 @@
       <button type="button" class="popup__close-button" title="Закрыть"></button>
     </div>
   </div>
-  <div class="img-popup popup">
-    <div class="img-popup__container">
-      <img src="./images/elements/__img/edinburgh_castle.jpg" alt="Эдинбургский замок." class="img-popup__item">
-      <p class="img-popup__title">Эдинбургский замок</p>
+  <div class="popup popup_type_img">
+    <div class="popup__img-wrapper">
+      <img class="popup__img">
+      <p class="popup__img-title"></p>
       <button type="button" class="popup__close-button" title="Закрыть"></button>
     </div>
   </div>
