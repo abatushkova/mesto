@@ -4,6 +4,7 @@
 @import './__title/elements__title.css';
 @import './__like-button/elements__like-button.css';
 @import './__like-button/_active/elements__like-button_active.css';
+@import './__delete-button/elements__delete-button.css';
 
 .elements {
   display: -ms-grid;

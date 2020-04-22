@@ -23,11 +23,12 @@
     </section>
     <section class="elements">
       <div class="elements__item">
-        <img src="./images/elements/__img/edinburgh_castle.jpg" alt="Эдинбургский замок." class="elements__img">
+        <a href="./images/elements/__img/edinburgh_castle.jpg" class="elements__img-wrapper"><img src="./images/elements/__img/edinburgh_castle.jpg" alt="Эдинбургский замок." class="elements__img"></a>
         <div class="elements__info">
           <h2 class="elements__title">Эдинбургский замок</h2>
           <button type="button" class="elements__like-button" title="Мне нравится"></button>
         </div>
+        <button type="button" class="elements__delete-button" title="Удалить"></button>
       </div>
       <div class="elements__item">
         <img src="./images/elements/__img/golden_gate.jpg" alt="Золотые ворота." class="elements__img">
@@ -35,6 +36,7 @@
           <h2 class="elements__title">Золотые ворота</h2>
           <button type="button" class="elements__like-button" title="Мне нравится"></button>
         </div>
+        <button type="button" class="elements__delete-button" title="Удалить"></button>
       </div>
       <div class="elements__item">
         <img src="./images/elements/__img/grinda_island.jpg" alt="Гринда." class="elements__img">
@@ -70,16 +72,44 @@
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
   <div class="popup">
-    <div class="popup__container">
+    <div class="popup__container popup__container_type_profile">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__form" name="profile" method="POST" action="#">
         <input type="text" name="name" class="popup__input popup__input_type_profile-name" placeholder="Имя" />
         <input type="text" name="job" class="popup__input popup__input_type_profile-job" placeholder="О себе" />
-        <button type="submit" class="popup__save-button" title="Сохранить изменения">Сохранить</button>
+        <button type="submit" class="popup__save-button">Сохранить</button>
       </form>
       <button type="button" class="popup__close-button" title="Закрыть"></button>
     </div>
   </div>
+  <div class="popup">
+    <div class="popup__container">
+      <h2 class="popup__title">Новое место</h2>
+      <form class="popup__form" name="место" method="POST" action="#">
+        <input type="text" name="name" class="popup__input popup__input_type_img-name" placeholder="Название" />
+        <input type="text" name="src" class="popup__input popup__input_type_img-src" placeholder="Ссылка" />
+        <button type="submit" class="popup__save-button">Создать</button>
+      </form>
+      <button type="button" class="popup__close-button" title="Закрыть"></button>
+    </div>
+  </div>
+  <div class="img-popup popup">
+    <div class="img-popup__container">
+      <img src="./images/elements/__img/edinburgh_castle.jpg" alt="Эдинбургский замок." class="img-popup__item">
+      <p class="img-popup__title">Эдинбургский замок</p>
+      <button type="button" class="popup__close-button" title="Закрыть"></button>
+    </div>
+  </div>
+
+  <!-- <template id="profile">
+    <h2 class="popup__title"></h2>
+    <form class="popup__form" name="" method="POST" action="#">
+      <input type="text" name="name" class="popup__input " placeholder="" />
+      <input type="text" name="" class="popup__input " placeholder="" />
+      <button type="submit" class="popup__save-button"></button>
+    </form>
+    <button type="button" class="popup__close-button" title="Закрыть"></button>
+  </template> -->
 
   <script src="./pages/index.js"></script>
 </body>
