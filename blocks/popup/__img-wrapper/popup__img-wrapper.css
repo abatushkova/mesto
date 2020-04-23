@@ -1,5 +1,7 @@
 .popup__img-wrapper {
   position: relative;
-  max-width: calc(100% - 5rem);
+  width: 100%;
+  max-width: 75vw;
+  max-height: 75vh;
   font-size: 0;
 }

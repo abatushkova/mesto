@@ -16,100 +16,49 @@
       <img src="./images/profile/__avatar/avatar.jpg" alt="Жак-Ив Кусто." class="profile__avatar">
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <button type="button" class="profile__edit-button" title="Редактировать профиль"></button>
+        <button type="button" class="profile__edit-btn" title="Редактировать профиль"></button>
         <p class="profile__job">Исследователь океана</p>
       </div>
-      <button type="button" class="profile__add-button" title="Добавить фотографию"></button>
+      <button type="button" class="profile__add-btn" title="Добавить фотографию"></button>
     </section>
-    <section class="elements">
-      <div class="elements__item">
-        <a href="#" class="elements__img-wrapper"><img src="./images/elements/__img/edinburgh_castle.jpg" alt="Эдинбургский замок" class="elements__img"></a>
-        <div class="elements__info">
-          <h2 class="elements__title">Эдинбургский замок</h2>
-          <button type="button" class="elements__like-button" title="Мне нравится"></button>
-        </div>
-        <button type="button" class="elements__delete-button" title="Удалить"></button>
-      </div>
-      <div class="elements__item">
-        <a href="#" class="elements__img-wrapper"><img src="./images/elements/__img/golden_gate.jpg" alt="Золотые ворота" class="elements__img"></a>
-        <div class="elements__info">
-          <h2 class="elements__title">Золотые ворота</h2>
-          <button type="button" class="elements__like-button" title="Мне нравится"></button>
-        </div>
-        <button type="button" class="elements__delete-button" title="Удалить"></button>
-      </div>
-      <div class="elements__item">
-        <img src="./images/elements/__img/grinda_island.jpg" alt="Гринда" class="elements__img">
-        <div class="elements__info">
-          <h2 class="elements__title">Гринда</h2>
-          <button type="button" class="elements__like-button" title="Мне нравится"></button>
-        </div>
-      </div>
-      <div class="elements__item">
-        <img src="./images/elements/__img/kyoto.jpg" alt="Кинкаку-дзи" class="elements__img">
-        <div class="elements__info">
-          <h2 class="elements__title">Кинкаку-дзи</h2>
-          <button type="button" class="elements__like-button" title="Мне нравится"></button>
-        </div>
-      </div>
-      <div class="elements__item">
-        <img src="./images/elements/__img/mont-saint-michel.jpg" alt="Мон-Сен-Мишель" class="elements__img">
-        <div class="elements__info">
-          <h2 class="elements__title">Мон-Сен-Мишель</h2>
-          <button type="button" class="elements__like-button" title="Мне нравится"></button>
-        </div>
-      </div>
-      <div class="elements__item">
-        <img src="./images/elements/__img/mountain_matterhorn.jpg" alt="Маттерхорн" class="elements__img">
-        <div class="elements__info">
-          <h2 class="elements__title">Маттерхорн</h2>
-          <button type="button" class="elements__like-button" title="Мне нравится"></button>
-        </div>
-      </div>
-    </section>
+    <section class="elements"></section>
   </main>
   <footer class="footer">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
-  <div class="popup popup_type_profile">
-    <div class="popup__container">
-      <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__form" name="profile" method="POST" action="#">
-        <input type="text" name="name" class="popup__input popup__input_type_profile-name" placeholder="Имя" />
-        <input type="text" name="job" class="popup__input popup__input_type_profile-job" placeholder="О себе" />
-        <button type="submit" class="popup__save-button">Сохранить</button>
-      </form>
-      <button type="button" class="popup__close-button" title="Закрыть"></button>
-    </div>
-  </div>
-  <div class="popup">
-    <div class="popup__container">
-      <h2 class="popup__title">Новое место</h2>
-      <form class="popup__form" name="places" method="POST" action="#">
-        <input type="text" name="name" class="popup__input popup__input_type_img-name" placeholder="Название" />
-        <input type="text" name="src" class="popup__input popup__input_type_img-src" placeholder="Ссылка" />
-        <button type="submit" class="popup__save-button">Создать</button>
-      </form>
-      <button type="button" class="popup__close-button" title="Закрыть"></button>
-    </div>
-  </div>
+  <div class="popup popup_type_profile"></div>
+  <div class="popup popup_type_card"></div>
   <div class="popup popup_type_img">
     <div class="popup__img-wrapper">
       <img class="popup__img">
       <p class="popup__img-title"></p>
-      <button type="button" class="popup__close-button" title="Закрыть"></button>
+      <button type="button" class="popup__close-btn" title="Закрыть"></button>
     </div>
   </div>
 
-  <!-- <template id="profile">
-    <h2 class="popup__title"></h2>
-    <form class="popup__form" name="" method="POST" action="#">
-      <input type="text" name="name" class="popup__input " placeholder="" />
-      <input type="text" name="" class="popup__input " placeholder="" />
-      <button type="submit" class="popup__save-button"></button>
-    </form>
-    <button type="button" class="popup__close-button" title="Закрыть"></button>
-  </template> -->
+  <template id="submit-popup">
+    <div class="popup__container">
+      <h2 class="popup__title"></h2>
+      <form class="popup__form" name="" method="POST" action="#">
+        <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="" />
+        <input type="text" name="" class="popup__input popup__input_type_info" placeholder="" />
+        <button type="submit" class="popup__save-btn"></button>
+      </form>
+      <button type="button" class="popup__close-btn" title="Закрыть"></button>
+    </div>
+  </template>
+  <template id="card">
+    <div class="elements__item">
+      <a href="" class="elements__img-wrapper">
+        <img class="elements__img">
+      </a>
+      <div class="elements__info">
+        <h2 class="elements__title"></h2>
+        <button type="button" class="elements__like-btn" title="Мне нравится"></button>
+      </div>
+      <button type="button" class="elements__delete-btn" title="Удалить"></button>
+    </div>
+  </template>
 
   <script src="./pages/index.js"></script>
 </body>

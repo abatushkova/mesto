@@ -3,9 +3,9 @@
 @import './__img/elements__img.css';
 @import './__info/elements__info.css';
 @import './__title/elements__title.css';
-@import './__like-button/elements__like-button.css';
-@import './__like-button/_active/elements__like-button_active.css';
-@import './__delete-button/elements__delete-button.css';
+@import './__like-btn/elements__like-btn.css';
+@import './__like-btn/_active/elements__like-btn_active.css';
+@import './__delete-btn/elements__delete-btn.css';
 
 .elements {
   display: -ms-grid;

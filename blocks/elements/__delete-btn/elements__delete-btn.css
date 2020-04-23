@@ -1,4 +1,4 @@
-.elements__delete-button {
+.elements__delete-btn {
   position: absolute;
   top: 1.125rem;
   right: 1rem;
@@ -6,7 +6,7 @@
   height: 1.125rem;
   padding: 0;
   border: 0;
-  background-image: url(../../../images/elements/__delete-button/delete.svg);
+  background-image: url(../../../images/elements/__delete-btn/delete.svg);
   background-color: transparent;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -16,11 +16,11 @@
   cursor: pointer;
 }
 
-.elements__delete-button:focus,
-.elements__delete-button:hover {
+.elements__delete-btn:focus,
+.elements__delete-btn:hover {
   opacity: .6;
 }
 
-.elements__delete-button:active {
+.elements__delete-btn:active {
   opacity: .4;
 }
