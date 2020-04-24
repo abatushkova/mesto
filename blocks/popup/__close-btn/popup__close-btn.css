@@ -1,12 +1,12 @@
-.popup__close-button {
+.popup__close-btn {
   position: absolute;
-  top: -32px;
-  right: -32px;
+  top: -36px;
+  right: -36px;
   width: 2.5rem;
   height: 2.5rem;
   padding: 0;
   border: 0;
-  background-image: url(../../../images/popup/__close-button/close.svg);
+  background-image: url(../../../images/popup/__close-btn/close.svg);
   background-color: transparent;
   background-repeat: no-repeat;
   background-size: cover;
@@ -16,11 +16,11 @@
   cursor: pointer;
 }
 
-.popup__close-button:focus,
-.popup__close-button:hover {
+.popup__close-btn:focus,
+.popup__close-btn:hover {
   opacity: .6;
 }
 
-.popup__close-button:active {
+.popup__close-btn:active {
   opacity: .4;
 }
