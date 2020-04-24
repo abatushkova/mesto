@@ -31,7 +31,7 @@ const initialCards = [
 ];
 
 const profilePopup = {
-  class: 'popup_type_profile',
+  className: 'popup_type_profile',
   title: 'Редактировать профиль',
   form: 'profile',
   inputName: 
@@ -48,7 +48,7 @@ const profilePopup = {
 };
 
 const cardPopup = {
-  class: 'popup_type_card',
+  className: 'popup_type_card',
   title: 'Новое место',
   form: 'card',
   inputName: 
@@ -65,19 +65,18 @@ const cardPopup = {
 };
 
 
-function openPopup(item) {
-  item.classList.add('popup_opened');
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
 }
 
 function closePopup() {
   const popupWindows = document.querySelectorAll('.popup');
 
-  popupWindows.forEach(elm => {
-    elm.classList.remove('popup_opened');
+  popupWindows.forEach(popup => {
+    popup.classList.remove('popup_opened');
     
-    while (elm.firstChild && 
-      !elm.classList.contains('popup_type_img')) {
-      elm.removeChild(elm.firstChild);
+    while (popup.firstChild && !popup.classList.contains('popup_type_img')) {
+      popup.removeChild(popup.firstChild);
     }
   });
 }
@@ -133,8 +132,8 @@ function setCardContent(nameValue, linkValue, orderValue) {
 function createInitialCards() {
   const addOrder = 'append';
 
-  initialCards.forEach(elm => {
-    setCardContent(elm.name, elm.link, `${addOrder}`);
+  initialCards.forEach(card => {
+    setCardContent(card.name, card.link, `${addOrder}`);
   });
 };
 
@@ -146,24 +145,24 @@ function setInputValues(name, info) {
   inputInfoValue.value = info;
 }
 
-function createDefaultPopup(item) {
+function createDefaultPopup(popup) {
   const popupTemplate = document.querySelector('#submit-popup').content;
-  const popup = document.querySelector(`.${item.class}`);
+  const popupContaier = document.querySelector(`.${popup.className}`);
   
   // clone template content
   const popupElement = popupTemplate.cloneNode(true);
   
   // set popup-container content
-  popupElement.querySelector('.popup__title').textContent = item.title;
-  popupElement.querySelector('.popup__form').name = item.form;
-  popupElement.querySelector('.popup__input_type_name').name = item.inputName.name;
-  popupElement.querySelector('.popup__input_type_name').placeholder = item.inputName.placeholder;
-  popupElement.querySelector('.popup__input_type_info').name = item.inputInfo.name;
-  popupElement.querySelector('.popup__input_type_info').placeholder = item.inputInfo.placeholder;
-  popupElement.querySelector('.popup__save-btn').textContent = item.submitButton;
+  popupElement.querySelector('.popup__title').textContent = popup.title;
+  popupElement.querySelector('.popup__form').name = popup.form;
+  popupElement.querySelector('.popup__input_type_name').name = popup.inputName.name;
+  popupElement.querySelector('.popup__input_type_name').placeholder = popup.inputName.placeholder;
+  popupElement.querySelector('.popup__input_type_info').name = popup.inputInfo.name;
+  popupElement.querySelector('.popup__input_type_info').placeholder = popup.inputInfo.placeholder;
+  popupElement.querySelector('.popup__save-btn').textContent = popup.submitButton;
 
   // add element to popup
-  popup.append(popupElement);
+  popupContaier.append(popupElement);
 
   document.querySelector('.popup__close-btn').addEventListener('click', closePopup);
 }
@@ -171,9 +170,17 @@ function createDefaultPopup(item) {
 function formSubmitProfile(evt) {
   evt.preventDefault(); // prevent default action of submit
   
+  const inputItems = document.querySelectorAll('.popup__input');
   const inputNameValue = document.querySelector('.popup__input_type_name');
   const inputInfoValue = document.querySelector('.popup__input_type_info');
   
+  inputItems.forEach(input => {
+    input.addEventListener('focus', () => {
+      console.log('focus');
+      input.value = '';
+    })
+  });
+
   // set new profile name if it's different
   if (profileName.textContent !== inputNameValue.value) {
     profileName.textContent = inputNameValue.value;
@@ -206,16 +213,23 @@ function editProfile() {
 function formSubmitCard(evt) {
   evt.preventDefault(); // prevent default action of submit
 
+  const inputItems = document.querySelectorAll('.popup__input');
   const inputCardName = document.querySelector('.popup__input_type_name');
   const inputCardInfo = document.querySelector('.popup__input_type_info');
   const addOrder = 'prepend';
 
   // add new card to page if input is filled
-  if (inputCardName.value && inputCardInfo.value) {
+  if (!inputCardName.value || !inputCardInfo.value) {
+    // change appearance of empty input
+    inputItems.forEach(input => {
+      input.style.borderBottomColor = '#dc143c';
+      input.placeholder = 'Поле является обязательным';
+    });
+  } else {
     setCardContent(inputCardName.value, inputCardInfo.value, `${addOrder}`);
-  }
 
-  closePopup();
+    closePopup();
+  }
 }
 
 function addCard() {
