@@ -1,4 +1,4 @@
-.profile__add-button {
+.profile__add-btn {
   width: 100%;
   max-width: 18.75rem;
   height: 3.125rem;
@@ -7,7 +7,7 @@
   border: 2px solid #fff;
   border-radius: 2px;
   box-sizing: border-box;
-  background-image: url(../../../images/profile/__add-button/add.svg);
+  background-image: url(../../../images/profile/__add-btn/add.svg);
   background-color: transparent;
   background-repeat: no-repeat;
   background-size: 1rem 1rem;
@@ -18,17 +18,17 @@
   cursor: pointer;
 }
 
-.profile__add-button:focus,
-.profile__add-button:hover {
+.profile__add-btn:focus,
+.profile__add-btn:hover {
   opacity: .6;
 }
 
-.profile__add-button:active {
+.profile__add-btn:active {
   opacity: .4;
 }
 
 @media screen and (min-width: 768px) {
-  .profile__add-button {
+  .profile__add-btn {
     width: 9.375rem;
     background-size: 1.375rem 1.375rem;
   }

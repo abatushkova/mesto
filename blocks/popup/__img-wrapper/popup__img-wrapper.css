@@ -1,5 +1,4 @@
 .popup__img-wrapper {
   position: relative;
-  max-width: calc(100% - 5rem);
   font-size: 0;
 }

@@ -2,8 +2,8 @@
 @import './__info/profile__info.css';
 @import './__name/profile__name.css';
 @import './__job/profile__job.css';
-@import './__edit-button/profile__edit-button.css';
-@import './__add-button/profile__add-button.css';
+@import './__edit-btn/profile__edit-btn.css';
+@import './__add-btn/profile__add-btn.css';
 
 .profile {
   display: -webkit-box;
