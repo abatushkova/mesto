@@ -47,8 +47,7 @@ const profilePopup = {
       name: 'job',
       placeholder: 'О себе'
     },
-  submitButton: 'Сохранить',
-  submitAction: 'formProfileSubmit'
+  submitButton: 'Сохранить'
 };
 
 const cardPopup = {
@@ -65,8 +64,7 @@ const cardPopup = {
       name: 'src',
       placeholder: 'Ссылка'
     },
-  submitButton: 'Создать',
-  submitAction: 'formCardSubmit'
+  submitButton: 'Создать'
 };
 
 function togglePopup(popup) {
@@ -163,7 +161,7 @@ function setInputValues(name, info) {
 
 function createDefaultPopup(popup) {
   const popupTemplate = document.querySelector('#submit-popup').content;
-  const popupContaier = document.querySelector(`.${popup.className}`);
+  const popupContainer = document.querySelector(`.${popup.className}`);
   const popupElement = popupTemplate.cloneNode(true); // clone template
 
   const popupTitle = popupElement.querySelector('.popup__title');
@@ -183,11 +181,12 @@ function createDefaultPopup(popup) {
   popupSaveBtn.textContent = popup.submitButton;
 
   popupCloseBtn.addEventListener('click', () => {
-    togglePopup(popupContaier);
+    togglePopup(popupContainer);
   });
 
-  // add element to popup
-  popupContaier.append(popupElement);
+  popupContainer.append(popupElement);
+
+  return popupContainer;
 }
 
 function formSubmitProfile(evt) {
@@ -213,14 +212,18 @@ function formSubmitProfile(evt) {
   togglePopup(popupProfileWindow);
 }
 
+function createProfilePopup() {
+  const popup = createDefaultPopup(profilePopup);
+
+  popup.addEventListener('submit', formSubmitProfile);
+}
+
 function editProfile() {
   togglePopup(popupProfileWindow);
 
   if (!popupProfileWindow.firstChild) {
-    createDefaultPopup(profilePopup);
+    createProfilePopup();
     setInputValues(profileName.textContent, profileInfo.textContent);
-
-    document.querySelector('.popup__form').addEventListener('submit', formSubmitProfile);
   } 
 }
 
@@ -245,13 +248,17 @@ function formSubmitCard(evt) {
   }
 }
 
+function createCardPopup() {
+  const popup = createDefaultPopup(cardPopup);
+
+  popup.addEventListener('submit', formSubmitCard);
+}
+
 function addCard() {
   togglePopup(popupCardWindow);
 
   if (!popupCardWindow.firstChild) {
-    createDefaultPopup(cardPopup);
-
-    document.querySelector('.popup__form').addEventListener('submit', formSubmitCard);
+    createCardPopup();
   } 
 }
 
