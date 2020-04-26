@@ -48,7 +48,7 @@ const profilePopup = {
       placeholder: 'О себе'
     },
   submitButton: 'Сохранить',
-  submitAction: 'formSubmitProfile'
+  submitAction: 'formProfileSubmit'
 };
 
 const cardPopup = {
@@ -66,7 +66,7 @@ const cardPopup = {
       placeholder: 'Ссылка'
     },
   submitButton: 'Создать',
-  formSubmitCard() {}
+  submitAction: 'formCardSubmit'
 };
 
 function togglePopup(popup) {
@@ -84,8 +84,7 @@ function togglePopup(popup) {
 // create content to fullscreen img
 function createImgPopup(evt) {
   const imgTemplate = document.querySelector('#img-popup').content;
-  // clone template content
-  const imgContainer = imgTemplate.cloneNode(true);
+  const imgContainer = imgTemplate.cloneNode(true); // clone template
 
   const imgElement = imgContainer.querySelector('.popup__img');
   const imgTitle = imgContainer.querySelector('.popup__img-title');
@@ -113,8 +112,7 @@ function openFullscreenImg(evt) {
 function setCardContent(nameValue, linkValue, orderValue) {
   const cardTemplate = document.querySelector('#card').content;
   const cardContainer = document.querySelector('.elements');
-  // clone template content
-  const card = cardTemplate.cloneNode(true);
+  const card = cardTemplate.cloneNode(true); // clone template
 
   const cardImgWrapper = card.querySelector('.elements__img-wrapper');
   const cardImg = card.querySelector('.elements__img');
@@ -131,11 +129,11 @@ function setCardContent(nameValue, linkValue, orderValue) {
   cardLikeBtn.addEventListener('click', evt => {
     evt.target.classList.toggle('elements__like-btn_active');
   });
-  // delete cards with image on click
+  // delete cards with img on click
   cardDeleteBtn.addEventListener('click', evt => {
     evt.target.closest('.elements__item').remove();
   });
-  // call fullscreen image function on click
+  // call fullscreen img function on click
   cardImgWrapper.addEventListener('click', openFullscreenImg); 
 
   // add card to card-container
@@ -156,61 +154,60 @@ function createInitialCards() {
 createInitialCards();
 
 function setInputValues(name, info) {
-  const inputNameValue = document.querySelector('.popup__input_type_name');
-  const inputInfoValue = document.querySelector('.popup__input_type_info');
+  const inputTypeName = document.querySelector('.popup__input_type_name');
+  const inputTypeInfo = document.querySelector('.popup__input_type_info');
 
-  inputNameValue.value = name;
-  inputInfoValue.value = info;
+  inputTypeName.value = name;
+  inputTypeInfo.value = info;
 }
 
 function createDefaultPopup(popup) {
   const popupTemplate = document.querySelector('#submit-popup').content;
   const popupContaier = document.querySelector(`.${popup.className}`);
-  // clone template content
-  const popupElement = popupTemplate.cloneNode(true);
+  const popupElement = popupTemplate.cloneNode(true); // clone template
 
   const popupTitle = popupElement.querySelector('.popup__title');
   const popupForm = popupElement.querySelector('.popup__form');
-  const popupTypeName = popupElement.querySelector('.popup__input_type_name');
-  const popupTypeInfo = popupElement.querySelector('.popup__input_type_info');
+  const inputTypeName = popupElement.querySelector('.popup__input_type_name');
+  const inputTypeInfo = popupElement.querySelector('.popup__input_type_info');
   const popupSaveBtn = popupElement.querySelector('.popup__save-btn');
   const popupCloseBtn = popupElement.querySelector('.popup__close-btn');
   
   // set popup-container content
   popupTitle.textContent = popup.title;
   popupForm.name = popup.form;
-  popupTypeName.name = popup.inputName.name;
-  popupTypeName.placeholder = popup.inputName.placeholder;
-  popupTypeInfo.name = popup.inputInfo.name;
-  popupTypeInfo.placeholder = popup.inputInfo.placeholder;
+  inputTypeName.name = popup.inputName.name;
+  inputTypeName.placeholder = popup.inputName.placeholder;
+  inputTypeInfo.name = popup.inputInfo.name;
+  inputTypeInfo.placeholder = popup.inputInfo.placeholder;
   popupSaveBtn.textContent = popup.submitButton;
-
-  // add element to popup
-  popupContaier.append(popupElement);
 
   popupCloseBtn.addEventListener('click', () => {
     togglePopup(popupContaier);
   });
+
+  // add element to popup
+  popupContaier.append(popupElement);
 }
 
 function formSubmitProfile(evt) {
   evt.preventDefault(); // prevent default action of submit
   
-  const inputNameValue = document.querySelector('.popup__input_type_name');
-  const inputInfoValue = document.querySelector('.popup__input_type_info');
+  const inputTypeName = document.querySelector('.popup__input_type_name');
+  const inputTypeInfo = document.querySelector('.popup__input_type_info');
   const profileAvatar = document.querySelector('.profile__avatar');
 
   // set new profile name if it's different
-  if (profileName.textContent !== inputNameValue.value) {
-    profileName.textContent = inputNameValue.value;
+  if (profileName.textContent !== inputTypeName.value) {
+    profileName.textContent = inputTypeName.value;
 
     // set profile name as avatar alt
-    profileAvatar.setAttribute('alt', inputNameValue.value);
+    profileAvatar.setAttribute('alt', inputTypeName.value);
   }
   
   // set new profile job if it's different
-  if (profileInfo.textContent !== inputInfoValue.value) {
-    profileInfo.textContent = inputInfoValue.value;
+  if (profileInfo.textContent !== inputTypeInfo.value) {
+    profileInfo.textContent = inputTypeInfo.value;
   }
   
   togglePopup(popupProfileWindow);
@@ -235,7 +232,7 @@ function formSubmitCard(evt) {
   const inputCardInfo = document.querySelector('.popup__input_type_info');
   const methodName = 'prepend';
 
-  // add new card to page if input is filled
+  // add new card if input is filled
   if (!inputCardName.value || !inputCardInfo.value) {
     // change appearance of empty input
     inputItems.forEach(input => {
@@ -257,7 +254,6 @@ function addCard() {
     document.querySelector('.popup__form').addEventListener('submit', formSubmitCard);
   } 
 }
-
 
 buttonEdit.addEventListener('click', editProfile);
 buttonAdd.addEventListener('click', addCard);
