@@ -28,7 +28,13 @@
   </footer>
   <div class="popup popup_type_profile"></div>
   <div class="popup popup_type_card"></div>
-  <div class="popup popup_type_img"></div>
+  <div class="popup popup_type_img">
+    <div class="popup__img-wrapper">
+      <img class="popup__img">
+      <p class="popup__img-title"></p>
+      <button type="button" class="popup__close-btn" title="Закрыть"></button>
+    </div>
+  </div>
 
   <template id="submit-popup">
     <div class="popup__container">
@@ -51,13 +57,6 @@
         <button type="button" class="elements__like-btn" title="Мне нравится"></button>
       </div>
       <button type="button" class="elements__delete-btn" title="Удалить"></button>
-    </div>
-  </template>
-  <template id="img-popup">
-    <div class="popup__img-wrapper">
-      <img class="popup__img">
-      <p class="popup__img-title"></p>
-      <button type="button" class="popup__close-btn" title="Закрыть"></button>
     </div>
   </template>
 
