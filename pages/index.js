@@ -69,9 +69,21 @@ const cardPopup = {
   submitButton: 'Создать'
 };
 
+function togglePopupFocus(popup) {
+  if (!popup.hasAttribute('tabindex')) {
+    popup.setAttribute('tabindex', 1);
+    popup.focus();
+  } else {
+    popup.removeAttribute('tabindex');
+    popup.blur();
+  }
+}
+
 function togglePopup(popup) {
   popup.classList.toggle('popup_opened');
 
+  togglePopupFocus(popup);
+  
   while (popup.firstChild && !popup.classList.contains('popup_type_img')) {
     popup.removeChild(popup.firstChild);
   }
@@ -246,8 +258,13 @@ buttonAdd.addEventListener('click', addCard);
 
 popupWindows.forEach(popup => {
   popup.addEventListener('click', evt => {
-    if (evt.target && evt.target.matches('.popup__close-btn')) {
+    if (evt.target.matches('.popup__close-btn') || evt.target.matches('.popup_opened')) {
       togglePopup(popup);
     }
-  })
+  });
+  popup.addEventListener('keydown', evt => {
+    if (evt.key === 'Escape') {
+      togglePopup(popup);
+    }
+  });
 });
