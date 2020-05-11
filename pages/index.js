@@ -79,13 +79,30 @@ function togglePopupFocus(popup) {
   }
 }
 
+function removePopupChildElm(popup) {
+  while (popup.firstChild && !popup.classList.contains('popup_type_img')) {
+    popup.removeChild(popup.firstChild);
+  }
+}
+
+function handleEscButton(evt) {
+  if (evt.key === 'Escape') {
+    togglePopup(evt.target);
+  }
+}
+
 function togglePopup(popup) {
   popup.classList.toggle('popup_opened');
 
   togglePopupFocus(popup);
+  removePopupChildElm(popup);
   
-  while (popup.firstChild && !popup.classList.contains('popup_type_img')) {
-    popup.removeChild(popup.firstChild);
+  if (popup.classList.contains('popup_opened')) {
+    console.log('hello');
+    popup.addEventListener('keydown', handleEscButton, true);
+  } else {
+    console.log('bye-bye');
+    popup.removeEventListener('keydown', handleEscButton, true);
   }
 }
 
@@ -259,11 +276,6 @@ buttonAdd.addEventListener('click', addCard);
 popupWindows.forEach(popup => {
   popup.addEventListener('click', evt => {
     if (evt.target.matches('.popup__close-btn') || evt.target.matches('.popup_opened')) {
-      togglePopup(popup);
-    }
-  });
-  popup.addEventListener('keydown', evt => {
-    if (evt.key === 'Escape') {
       togglePopup(popup);
     }
   });
