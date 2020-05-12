@@ -8,5 +8,5 @@
 }
 
 .popup__input:not(:first-child) {
-  margin-top: 1.375rem;
+  margin-top: .25rem;
 }

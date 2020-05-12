@@ -40,9 +40,11 @@
     <div class="popup__container">
       <h2 class="popup__title"></h2>
       <form class="popup__form" name="" method="POST" action="#" novalidate>
-        <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="" />
-        <input type="text" name="" class="popup__input popup__input_type_info" placeholder="" />
-        <button type="submit" class="popup__save-btn"></button>
+        <input type="" name="" id="name-input" class="popup__input popup__input_type_name" placeholder="" required />
+        <span class="popup__error" id="name-input-error"></span>
+        <input type="" name="" id="info-input" class="popup__input popup__input_type_info" placeholder="" required />
+        <span class="popup__error" id="info-input-error"></span>
+        <button type="submit" class="popup__submit-btn"></button>
       </form>
       <button type="button" class="popup__close-btn" title="Закрыть"></button>
     </div>
@@ -61,5 +63,6 @@
   </template>
 
   <script src="./pages/index.js"></script>
+  <script src="./pages/validate.js"></script>
 </body>
 </html>
