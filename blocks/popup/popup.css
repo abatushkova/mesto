@@ -1,7 +1,11 @@
 @import './__container/popup__container.css';
 @import './__title/popup__title.css';
 @import './__input/popup__input.css';
-@import './__save-btn/popup__save-btn.css';
+@import './__input/_type/popup__input_type_error.css';
+@import './__submit-btn/popup__submit-btn.css';
+@import './__submit-btn/_disabled/popup__submit-btn_disabled.css';
+@import './__error/popup__error.css';
+@import './__error/_visible/popup__error_visible.css';
 @import './__close-btn/popup__close-btn.css';
 @import './__img-wrapper/popup__img-wrapper.css';
 @import './__img/popup__img.css';
