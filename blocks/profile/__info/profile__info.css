@@ -1,12 +1,12 @@
 .profile__info {
-  margin: 1.35rem 0 2.25rem;
+  margin: .625rem 0 0;
+  color: #fff;
+  font: 14px/17px 'Inter', Arial, sans-serif;
 }
 
 @media screen and (min-width: 768px) {
   .profile__info {
-    width: calc(100% - 7.5rem - 9.375rem - 1.875rem);
-    padding-right: 1rem;
-    margin: 0 0 0 1.875rem;
-    box-sizing: border-box;
+    font-size: 18px;
+    line-height: 22px;
   }
 }

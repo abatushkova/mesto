@@ -1,7 +1,7 @@
 const buttonEdit = document.querySelector('.profile__edit-btn');
 const buttonAdd = document.querySelector('.profile__add-btn');
 const profileName = document.querySelector('.profile__name');
-const profileInfo = document.querySelector('.profile__job');
+const profileInfo = document.querySelector('.profile__info');
 const popupImageWindow = document.querySelector('.popup_type_img');
 const popupProfileWindow = document.querySelector('.popup_type_profile');
 const popupCardWindow = document.querySelector('.popup_type_card');
@@ -47,7 +47,7 @@ const profilePopup = {
     },
   inputInfo:
     {
-      name: 'job',
+      name: 'info',
       placeholder: 'О себе',
       type: 'text'
     },
@@ -60,7 +60,7 @@ const cardPopup = {
   form: 'card',
   inputName: 
     {
-      name: 'name',
+      name: 'title',
       placeholder: 'Название',
       type: 'text'
     },
@@ -75,7 +75,7 @@ const cardPopup = {
 
 function togglePopupFocus(popup) {
   if (!popup.hasAttribute('tabindex')) {
-    popup.setAttribute('tabindex', 1);
+    popup.tabIndex = 1;
     popup.focus();
   } else {
     popup.removeAttribute('tabindex');
@@ -214,7 +214,7 @@ function formSubmitProfile(evt) {
     profileAvatar.alt = inputTypeName.value;
   }
   
-  // set new profile job if it's different
+  // set new profile info if it's different
   if (profileInfo.textContent !== inputTypeInfo.value) {
     profileInfo.textContent = inputTypeInfo.value;
   }
@@ -225,17 +225,23 @@ function formSubmitProfile(evt) {
 function createProfilePopup() {
   const popup = createDefaultPopup(profilePopup);
 
-  popup.addEventListener('input', enableValidation);
+  setInputValues(profileName.textContent, profileInfo.textContent);
+
+  enableValidation({
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__submit-btn',
+    inactiveButtonClass: 'popup__submit-btn_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+  });    
+  
   popup.addEventListener('submit', formSubmitProfile);
 }
 
 function editProfile() {
   togglePopup(popupProfileWindow);
-
-  if (!popupProfileWindow.firstChild) {
-    createProfilePopup();
-    setInputValues(profileName.textContent, profileInfo.textContent);
-  } 
+  createProfilePopup();
 }
 
 function formSubmitCard(evt) {
