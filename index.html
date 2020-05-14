@@ -26,8 +26,35 @@
   <footer class="footer">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
-  <div class="popup popup_type_profile"></div>
-  <div class="popup popup_type_card"></div>
+
+  <div class="popup popup_type_profile">
+    <div class="popup__container">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form class="popup__form" name="profile" method="POST" action="#" novalidate>
+        <input type="text" name="name" id="name-input" class="popup__input popup__input_type_name" placeholder="Имя" required minlength="2" maxlength="40" pattern="[a-zA-Zа-яА-ЯёЁ -]+" />
+        <span class="popup__error" id="name-input-error"></span>
+        <input type="text" name="info" id="info-input" class="popup__input popup__input_type_info" placeholder="О себе" required minlength="2" maxlength="200" />
+        <span class="popup__error" id="info-input-error"></span>
+        <button type="submit" class="popup__submit-btn">Сохранить</button>
+      </form>
+      <button type="button" class="popup__close-btn" title="Закрыть"></button>
+    </div>
+  </div>
+
+  <div class="popup popup_type_card">
+    <div class="popup__container">
+      <h2 class="popup__title">Новое место</h2>
+      <form class="popup__form" name="card" method="POST" action="#" novalidate>
+        <input type="text" name="title" id="title-input" class="popup__input popup__input_type_name" placeholder="Название" required minlength="1" maxlength="30" />
+        <span class="popup__error" id="title-input-error"></span>
+        <input type="url" name="src" id="src-input" class="popup__input popup__input_type_info" placeholder="Ссылка" required />
+        <span class="popup__error" id="src-input-error"></span>
+        <button type="submit" class="popup__submit-btn">Создать</button>
+      </form>
+      <button type="button" class="popup__close-btn" title="Закрыть"></button>
+    </div>
+  </div>
+
   <div class="popup popup_type_img">
     <div class="popup__img-wrapper">
       <img class="popup__img">
@@ -36,19 +63,6 @@
     </div>
   </div>
 
-  <template id="submit-popup">
-    <div class="popup__container">
-      <h2 class="popup__title"></h2>
-      <form class="popup__form" name="" method="POST" action="#" novalidate>
-        <input type="" name="" id="name-input" class="popup__input popup__input_type_name" placeholder="" required />
-        <span class="popup__error" id="name-input-error"></span>
-        <input type="" name="" id="info-input" class="popup__input popup__input_type_info" placeholder="" required />
-        <span class="popup__error" id="info-input-error"></span>
-        <button type="submit" class="popup__submit-btn"></button>
-      </form>
-      <button type="button" class="popup__close-btn" title="Закрыть"></button>
-    </div>
-  </template>
   <template id="card">
     <div class="elements__item">
       <a class="elements__img-wrapper" tabindex="-1">
