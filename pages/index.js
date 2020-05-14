@@ -6,8 +6,6 @@ const popupImageWindow = document.querySelector('.popup_type_img');
 const popupProfileWindow = document.querySelector('.popup_type_profile');
 const popupCardWindow = document.querySelector('.popup_type_card');
 const popupWindows = Array.from(document.querySelectorAll('.popup'));
-const inputTypeName = document.querySelector('.popup__input_type_name');
-const inputTypeInfo = document.querySelector('.popup__input_type_info');
 const cardContainer = document.querySelector('.elements');
 
 const initialCards = [
@@ -46,10 +44,19 @@ const formArgs = {
   errorClass: 'popup__error_visible'
 };
 
+function resetErrorMessage() {
+  const errorList = Array.from(document.querySelectorAll('.popup__error'));
+  const inputList = Array.from(document.querySelectorAll('.popup__input'));
+
+  errorList.forEach((error) => error.textContent = '');
+  inputList.forEach((error) => error.classList.remove('popup__input_type_error'));
+}
+
 function handlerKeydown(evt) {
   if (evt.key === 'Escape') {
     popupWindows.forEach((popup) => {
       popup.classList.remove('popup_opened');
+
       document.removeEventListener('keydown', handlerKeydown);
     });
   }
@@ -59,6 +66,8 @@ function togglePopup(popup) {
   popup.classList.toggle('popup_opened');
 
   document.addEventListener('keydown', handlerKeydown);
+
+  resetErrorMessage();
 }
 
 function setFullscreenImgContent(evt) {
@@ -108,7 +117,7 @@ function setCardContent(nameValue, linkValue) {
 }
 
 function createInitialCards() {
-  initialCards.forEach(card => {
+  initialCards.forEach((card) => {
     const cardContent = setCardContent(card.name, card.link);
 
     cardContainer.append(cardContent);
@@ -118,27 +127,23 @@ function createInitialCards() {
 createInitialCards();
 
 function setInputValues(name, info) {
+  const inputTypeName = document.querySelector('.popup__input_type_name');
+  const inputTypeInfo = document.querySelector('.popup__input_type_info');
+
   inputTypeName.value = name;
   inputTypeInfo.value = info;
 }
 
 function formSubmitProfile(evt) {
   evt.preventDefault(); // prevent default action of submit
-  
+
+  const inputTypeName = evt.target.querySelector('.popup__input_type_name');
+  const inputTypeInfo = evt.target.querySelector('.popup__input_type_info');
   const profileAvatar = document.querySelector('.profile__avatar');
 
-  // set new profile name if it's different
-  if (profileName.textContent !== inputTypeName.value) {
-    profileName.textContent = inputTypeName.value;
-
-    // set profile name as avatar alt
-    profileAvatar.alt = inputTypeName.value;
-  }
-  
-  // set new profile info if it's different
-  if (profileInfo.textContent !== inputTypeInfo.value) {
-    profileInfo.textContent = inputTypeInfo.value;
-  }
+  profileAvatar.alt = inputTypeName.value;
+  profileName.textContent = inputTypeName.value;
+  profileInfo.textContent = inputTypeInfo.value;
   
   togglePopup(popupProfileWindow);
 }
@@ -146,25 +151,28 @@ function formSubmitProfile(evt) {
 function renderProfilePopup() {
   togglePopup(popupProfileWindow);
   setInputValues(profileName.textContent, profileInfo.textContent);
-
-  enableValidation(formArgs);
+  enableValidation(popupProfileWindow, formArgs);
   
   popupProfileWindow.addEventListener('submit', formSubmitProfile);
 }
 
 function formSubmitCard(evt) {
   evt.preventDefault(); // prevent default action of submit
+  
+  const inputCardName = evt.target.querySelector('.popup__input_type_name');
+  const inputCardInfo = evt.target.querySelector('.popup__input_type_info');
 
-  const cardContent = setCardContent(inputTypeName.value, inputTypeInfo.value);
-
+  const cardContent = setCardContent(inputCardName.value, inputCardInfo.value);
   cardContainer.prepend(cardContent);
-
+  
   togglePopup(popupCardWindow);
+
+  evt.target.reset(); // clear input value
 }
 
 function renderCardPopup() {
   togglePopup(popupCardWindow);
-  enableValidation(formArgs);
+  enableValidation(popupCardWindow, formArgs);
 
   popupCardWindow.addEventListener('submit', formSubmitCard);
 }
@@ -172,7 +180,7 @@ function renderCardPopup() {
 buttonEdit.addEventListener('click', renderProfilePopup);
 buttonAdd.addEventListener('click', renderCardPopup);
 
-popupWindows.forEach(popup => {
+popupWindows.forEach((popup) => {
   popup.addEventListener('click', evt => {
     if (evt.target.matches('.popup__close-btn') || evt.target.matches('.popup_opened')) {
       togglePopup(popup);

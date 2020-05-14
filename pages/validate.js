@@ -54,7 +54,7 @@ function toggleButtonState(inputList, buttonElement, {inactiveButtonClass}) {
 
 const setEventListeners = (formElement, {inputSelector, submitButtonSelector, ...args}) => {
   // find inputs in form, create array of inputs
-  const inputList = Array.from(document.querySelectorAll(inputSelector));
+  const inputList = Array.from(formElement.querySelectorAll(inputSelector));
   const buttonElement = formElement.querySelector(submitButtonSelector);
 
   toggleButtonState(inputList, buttonElement, args);
@@ -71,10 +71,10 @@ const setEventListeners = (formElement, {inputSelector, submitButtonSelector, ..
   });
 };
 
-function enableValidation({formSelector, ...args}) {
+function enableValidation(popup, {formSelector, ...args}) {
   // create array of forms in DOM
-  const formList = Array.from(document.querySelectorAll(formSelector));
-
+  const formList = Array.from(popup.querySelectorAll(formSelector));
+  
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', (evt) => {
       evt.preventDefault(); // prevent default action of submit
