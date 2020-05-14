@@ -2,9 +2,6 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  /* -webkit-box-flex: 0;
-      -ms-flex: 0 0 4.9375rem;
-          flex: 0 0 4.9375rem; */
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-flow: row wrap;

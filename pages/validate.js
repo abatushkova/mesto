@@ -1,19 +1,25 @@
 const showInputError = (formElement, inputElement, errorMessage, {inputErrorClass, errorClass}) => {
   // find error element in form
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  const errorList = Array.from(formElement.querySelectorAll(`#${inputElement.id}-error`));
 
   inputElement.classList.add(inputErrorClass);
-  errorElement.classList.add(errorClass);
-  errorElement.textContent = errorMessage;
+
+  errorList.forEach((errorElement) => {
+    errorElement.classList.add(errorClass);
+    errorElement.textContent = errorMessage;
+  });
 };
 
 const hideInputError = (formElement, inputElement, {inputErrorClass, errorClass}) => {
   // find error element
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  const errorList = Array.from(formElement.querySelectorAll(`#${inputElement.id}-error`));
 
   inputElement.classList.remove(inputErrorClass);
-  errorElement.classList.remove(errorClass);
-  errorElement.textContent = '';
+
+  errorList.forEach((errorElement) => {
+    errorElement.classList.remove(errorClass);
+    errorElement.textContent = '';
+  });
 };
 
 const isValid = (formElement, inputElement, {...args}) => {
@@ -29,25 +35,6 @@ const isValid = (formElement, inputElement, {...args}) => {
     hideInputError(formElement, inputElement, args);
   }
 };
-
-function setInputLimits(inputElement) {
-  // check input name and set attributes
-  switch (inputElement.name) {
-    case 'name':
-      inputElement.minLength = 2;
-      inputElement.maxLength = 40;
-      inputElement.pattern = '[a-zA-Zа-яА-ЯёЁ -]+';
-      break;
-    case 'info':
-      inputElement.minLength = 2;
-      inputElement.maxLength = 200;
-      break;
-    case 'title':
-      inputElement.minLength = 1;
-      inputElement.maxLength = 30;
-      break;
-  }
-}
 
 function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
@@ -77,9 +64,6 @@ const setEventListeners = (formElement, {inputSelector, submitButtonSelector, ..
     inputElement.addEventListener('input', () => {
       // check button state
       toggleButtonState(inputList, buttonElement, args);
-
-      // set input validity properties
-      setInputLimits(inputElement);
       
       // call isValid with form and input as params
       isValid(formElement, inputElement, args);
@@ -95,8 +79,8 @@ function enableValidation({formSelector, ...args}) {
     formElement.addEventListener('submit', (evt) => {
       evt.preventDefault(); // prevent default action of submit
     });
-
-    // call setEventListeners with form as param
+    
+    // call setEventListeners for every form
     setEventListeners(formElement, args);
   });
 }
