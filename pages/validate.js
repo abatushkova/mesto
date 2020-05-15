@@ -44,7 +44,7 @@ function hasInvalidInput(inputList) {
 
 function toggleButtonState(inputList, buttonElement, {inactiveButtonClass}) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.setAttribute('disabled', '');
+    buttonElement.setAttribute('disabled', true);
     buttonElement.classList.add(inactiveButtonClass);
   } else {
     buttonElement.removeAttribute('disabled');
@@ -53,7 +53,7 @@ function toggleButtonState(inputList, buttonElement, {inactiveButtonClass}) {
 }
 
 const setEventListeners = (formElement, {inputSelector, submitButtonSelector, ...args}) => {
-  // find inputs in form, create array of inputs
+  // find inputs in form, create array
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
   const buttonElement = formElement.querySelector(submitButtonSelector);
 
@@ -71,9 +71,9 @@ const setEventListeners = (formElement, {inputSelector, submitButtonSelector, ..
   });
 };
 
-function enableValidation(popup, {formSelector, ...args}) {
-  // create array of forms in DOM
-  const formList = Array.from(popup.querySelectorAll(formSelector));
+function enableValidation({formSelector, ...args}) {
+  // find forms in DOM and create array
+  const formList = Array.from(document.querySelectorAll(formSelector));
   
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', (evt) => {
