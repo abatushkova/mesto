@@ -74,7 +74,6 @@ const setEventListeners = (formElement, {inputSelector, submitButtonSelector, ..
 function enableValidation({formSelector, ...args}) {
   // create array of forms in DOM
   const formList = Array.from(document.querySelectorAll(formSelector));
-  console.log(formList);
   
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', (evt) => {
