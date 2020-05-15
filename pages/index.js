@@ -1,12 +1,16 @@
 const buttonEdit = document.querySelector('.profile__edit-btn');
 const buttonAdd = document.querySelector('.profile__add-btn');
+const profileAvatar = document.querySelector('.profile__avatar');
 const profileName = document.querySelector('.profile__name');
 const profileInfo = document.querySelector('.profile__info');
 const popupImageWindow = document.querySelector('.popup_type_img');
+const imgElement = document.querySelector('.popup__img');
+const imgTitle = document.querySelector('.popup__img-title');
 const popupProfileWindow = document.querySelector('.popup_type_profile');
 const popupCardWindow = document.querySelector('.popup_type_card');
 const popupWindows = Array.from(document.querySelectorAll('.popup'));
 const cardContainer = document.querySelector('.elements');
+const cardTemplate = document.querySelector('#card').content;
 
 const initialCards = [
   {
@@ -71,25 +75,22 @@ function togglePopup(popup) {
 }
 
 function setFullscreenImgContent(evt) {
-  const imgElement = document.querySelector('.popup__img');
-  const imgTitle = document.querySelector('.popup__img-title');
-
-  imgElement.src = `${evt.target.src}`;
-  imgElement.alt = `${evt.target.alt}`;
-  imgTitle.textContent = `${evt.target.alt}`;
+  imgElement.src = evt.target.src;
+  imgElement.alt = evt.target.alt;
+  imgTitle.textContent = evt.target.alt;
 }
 
 // open fullscreen img
 function openFullscreenImg(evt) {
   evt.preventDefault(); // prevent default href action
 
-  togglePopup(popupImageWindow);
   setFullscreenImgContent(evt);
+  togglePopup(popupImageWindow);
 }
 
 function setCardContent(nameValue, linkValue) {
-  const cardTemplate = document.querySelector('#card').content;
-  const card = cardTemplate.cloneNode(true); // clone template
+  // clone template
+  const card = cardTemplate.cloneNode(true);
 
   const cardImgWrapper = card.querySelector('.elements__img-wrapper');
   const cardImg = card.querySelector('.elements__img');
@@ -139,7 +140,6 @@ function formSubmitProfile(evt) {
 
   const inputTypeName = evt.target.querySelector('.popup__input_type_name');
   const inputTypeInfo = evt.target.querySelector('.popup__input_type_info');
-  const profileAvatar = document.querySelector('.profile__avatar');
 
   profileAvatar.alt = inputTypeName.value;
   profileName.textContent = inputTypeName.value;
@@ -151,7 +151,7 @@ function formSubmitProfile(evt) {
 function renderProfilePopup() {
   togglePopup(popupProfileWindow);
   setInputValues(profileName.textContent, profileInfo.textContent);
-  enableValidation(popupProfileWindow, formArgs);
+  enableValidation(formArgs);
   
   popupProfileWindow.addEventListener('submit', formSubmitProfile);
 }
@@ -172,7 +172,7 @@ function formSubmitCard(evt) {
 
 function renderCardPopup() {
   togglePopup(popupCardWindow);
-  enableValidation(popupCardWindow, formArgs);
+  enableValidation(formArgs);
 
   popupCardWindow.addEventListener('submit', formSubmitCard);
 }
