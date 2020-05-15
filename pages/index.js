@@ -1,5 +1,5 @@
-const buttonEdit = document.querySelector('.profile__edit-btn');
 const buttonAdd = document.querySelector('.profile__add-btn');
+const buttonEdit = document.querySelector('.profile__edit-btn');
 const profileAvatar = document.querySelector('.profile__avatar');
 const profileName = document.querySelector('.profile__name');
 const profileInfo = document.querySelector('.profile__info');
@@ -10,8 +10,13 @@ const imgTitle = document.querySelector('.popup__img-title');
 const popupProfileWindow = document.querySelector('.popup_type_profile');
 const popupCardWindow = document.querySelector('.popup_type_card');
 const popupWindows = Array.from(document.querySelectorAll('.popup'));
-const inputTypeName = document.querySelector('.popup__input_type_name');
-const inputTypeInfo = document.querySelector('.popup__input_type_info');
+
+const profilePopupForm = document.forms.profile;
+const cardPopupForm = document.forms.card;
+const inputProfileName = profilePopupForm.elements.name;
+const inputProfileInfo = profilePopupForm.elements.info;
+const inputCardName = cardPopupForm.elements.title;
+const inputCardSrc = cardPopupForm.elements.src;
 
 const cardContainer = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card').content;
@@ -52,13 +57,22 @@ const formArgs = {
   errorClass: 'popup__error_visible'
 };
 
-function resetErrorMessage() {
-  const errorList = Array.from(document.querySelectorAll('.popup__error'));
-  const inputList = Array.from(document.querySelectorAll('.popup__input'));
+const makeClaener = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
 
-  errorList.forEach((error) => error.textContent = '');
-  inputList.forEach((error) => error.classList.remove('popup__input_type_error'));
+  const errorCleaner = () => {
+    inputList.forEach((inputElement) => {
+      inputElement.value = ''; // clean input value
+
+      hideInputError(formElement, inputElement, formArgs);
+    });
+  };
+
+  return errorCleaner;
 }
+
+const cleanProfileForm = makeClaener(profilePopupForm);
+const cleanCardForm = makeClaener(cardPopupForm);
 
 function handleKeydown(evt) {
   if (evt.key === 'Escape') {
@@ -142,63 +156,53 @@ function createInitialCards() {
 
 createInitialCards();
 
-function setInputValues(name, info) {
-  // const inputTypeName = document.querySelector('.popup__input_type_name');
-  // const inputTypeInfo = document.querySelector('.popup__input_type_info');
+function formSubmitCard(evt) {
+  evt.preventDefault(); // prevent default action of submit
+  
+  const cardContent = setCardContent(inputCardName.value, inputCardSrc.value);
+  cardContainer.prepend(cardContent);
+  
+  togglePopup(popupCardWindow);
+  
+  evt.target.reset(); // clean input value after submit
+}
 
-  inputTypeName.value = name;
-  inputTypeInfo.value = info;
+function renderCardPopup() {
+  cleanCardForm();
+  enableValidation(formArgs);
+  togglePopup(popupCardWindow);
+  
+  popupCardWindow.addEventListener('submit', formSubmitCard);
+}
+
+function setInputValues(name, info) {
+  inputProfileName.value = name;
+  inputProfileInfo.value = info;
 }
 
 function formSubmitProfile(evt) {
   evt.preventDefault(); // prevent default action of submit
 
-  // const inputTypeName = evt.target.querySelector('.popup__input_type_name');
-  // const inputTypeInfo = evt.target.querySelector('.popup__input_type_info');
-
-  profileAvatar.alt = inputTypeName.value;
-  profileName.textContent = inputTypeName.value;
-  profileInfo.textContent = inputTypeInfo.value;
+  profileAvatar.alt = inputProfileName.value;
+  profileName.textContent = inputProfileName.value;
+  profileInfo.textContent = inputProfileInfo.value;
   
   togglePopup(popupProfileWindow);
 
-  evt.target.reset(); // clear input value
+  evt.target.reset(); // clean input value after submit
 }
 
 function renderProfilePopup() {
-  resetErrorMessage();
-  togglePopup(popupProfileWindow);
+  cleanProfileForm();
   setInputValues(profileName.textContent, profileInfo.textContent);
   enableValidation(formArgs);
+  togglePopup(popupProfileWindow);
   
   popupProfileWindow.addEventListener('submit', formSubmitProfile);
 }
 
-function formSubmitCard(evt) {
-  evt.preventDefault(); // prevent default action of submit
-  
-  const inputCardName = evt.target.querySelector('.popup__input_type_name');
-  const inputCardInfo = evt.target.querySelector('.popup__input_type_info');
-
-  // const cardContent = setCardContent(inputTypeName.value, inputTypeInfo.value);
-  const cardContent = setCardContent(inputCardName.value, inputCardInfo.value);
-  cardContainer.prepend(cardContent);
-  
-  togglePopup(popupCardWindow);
-
-  evt.target.reset(); // clear input value
-}
-
-function renderCardPopup() {
-  resetErrorMessage();
-  togglePopup(popupCardWindow);
-  enableValidation(formArgs);
-
-  popupCardWindow.addEventListener('submit', formSubmitCard);
-}
-
-buttonEdit.addEventListener('click', renderProfilePopup);
 buttonAdd.addEventListener('click', renderCardPopup);
+buttonEdit.addEventListener('click', renderProfilePopup);
 
 popupWindows.forEach((popup) => {
   popup.addEventListener('click', evt => {

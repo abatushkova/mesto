@@ -53,7 +53,7 @@ function toggleButtonState(inputList, buttonElement, {inactiveButtonClass}) {
 }
 
 const setEventListeners = (formElement, {inputSelector, submitButtonSelector, ...args}) => {
-  // find inputs in form, create array of inputs
+  // find inputs in form, create array
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
   const buttonElement = formElement.querySelector(submitButtonSelector);
 
@@ -72,7 +72,7 @@ const setEventListeners = (formElement, {inputSelector, submitButtonSelector, ..
 };
 
 function enableValidation({formSelector, ...args}) {
-  // create array of forms in DOM
+  // find forms in DOM and create array
   const formList = Array.from(document.querySelectorAll(formSelector));
   
   formList.forEach((formElement) => {
