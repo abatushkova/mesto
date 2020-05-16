@@ -23,7 +23,6 @@ const hideInputError = (formElement, inputElement, {inputErrorClass, errorClass}
 };
 
 const isValid = (formElement, inputElement, {...args}) => {
-
   if (!inputElement.validity.valid) {
     // showInputError gets form and input as params  
     // with input to check
@@ -39,16 +38,14 @@ const isValid = (formElement, inputElement, {...args}) => {
 function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
-  })
+  });
 }
 
-function toggleButtonState(inputList, buttonElement, {inactiveButtonClass}) {
+function toggleButtonState(inputList, buttonElement) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.setAttribute('disabled', true);
-    buttonElement.classList.add(inactiveButtonClass);
+    toggleSubmitButtonClass(buttonElement, false);
   } else {
-    buttonElement.removeAttribute('disabled');
-    buttonElement.classList.remove(inactiveButtonClass);
+    toggleSubmitButtonClass(buttonElement, true);
   }
 }
 
@@ -57,13 +54,13 @@ const setEventListeners = (formElement, {inputSelector, submitButtonSelector, ..
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
   const buttonElement = formElement.querySelector(submitButtonSelector);
 
-  toggleButtonState(inputList, buttonElement, args);
+  toggleButtonState(inputList, buttonElement);
 
   inputList.forEach((inputElement) => {
     // set listener to every input on input-event,
     inputElement.addEventListener('input', () => {
       // check button state
-      toggleButtonState(inputList, buttonElement, args);
+      toggleButtonState(inputList, buttonElement);
       
       // call isValid with form and input as params
       isValid(formElement, inputElement, args);

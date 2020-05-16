@@ -8,7 +8,9 @@ const popupImageWindow = document.querySelector('.popup_type_img');
 const imgElement = document.querySelector('.popup__img');
 const imgTitle = document.querySelector('.popup__img-title');
 const popupProfileWindow = document.querySelector('.popup_type_profile');
+const buttonSubmitProfile = document.querySelector('.popup__submit-btn_type_profile');
 const popupCardWindow = document.querySelector('.popup_type_card');
+const buttonSubmitCard = document.querySelector('.popup__submit-btn_type_card');
 const popupWindows = Array.from(document.querySelectorAll('.popup'));
 
 const profilePopupForm = document.forms.profile;
@@ -52,12 +54,11 @@ const formArgs = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__submit-btn',
-  inactiveButtonClass: 'popup__submit-btn_disabled',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
 };
 
-const makeClaener = (formElement) => {
+const makeCleaner = (formElement) => {
   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
 
   const errorCleaner = () => {
@@ -71,8 +72,18 @@ const makeClaener = (formElement) => {
   return errorCleaner;
 };
 
-const cleanProfileForm = makeClaener(profilePopupForm);
-const cleanCardForm = makeClaener(cardPopupForm);
+const cleanProfileForm = makeCleaner(profilePopupForm);
+const cleanCardForm = makeCleaner(cardPopupForm);
+
+function toggleSubmitButtonClass(buttonElement, state) {
+  if (!state) {
+    buttonElement.setAttribute('disabled', true);
+    buttonElement.classList.add('popup__submit-btn_disabled');
+  } else {
+    buttonElement.removeAttribute('disabled');
+    buttonElement.classList.remove('popup__submit-btn_disabled');
+  }
+}
 
 function handleKeydown(evt) {
   if (evt.key === 'Escape') {
@@ -169,7 +180,7 @@ function formSubmitCard(evt) {
 
 function renderCardPopup() {
   cleanCardForm();
-  enableValidation(formArgs);
+  toggleSubmitButtonClass(buttonSubmitCard, false);
   togglePopup(popupCardWindow);
   
   popupCardWindow.addEventListener('submit', formSubmitCard);
@@ -195,9 +206,9 @@ function formSubmitProfile(evt) {
 function renderProfilePopup() {
   cleanProfileForm();
   setInputValues(profileName.textContent, profileInfo.textContent);
-  enableValidation(formArgs);
+  toggleSubmitButtonClass(buttonSubmitProfile, true);
   togglePopup(popupProfileWindow);
-  
+
   popupProfileWindow.addEventListener('submit', formSubmitProfile);
 }
 
@@ -214,3 +225,5 @@ popupWindows.forEach((popup) => {
     }
   });
 });
+
+enableValidation(formArgs);
