@@ -69,7 +69,7 @@ const makeClaener = (formElement) => {
   };
 
   return errorCleaner;
-}
+};
 
 const cleanProfileForm = makeClaener(profilePopupForm);
 const cleanCardForm = makeClaener(cardPopupForm);
