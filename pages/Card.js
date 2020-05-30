@@ -1,4 +1,4 @@
-import {handleKeydown} from './index.js';
+import {handleKeydown, handleCloseBtn} from './index.js';
 
 const popupImageWindow = document.querySelector('.popup_type_img');
 const popupImgElement = document.querySelector('.popup__img');
@@ -34,13 +34,14 @@ export class Card {
       .addEventListener('click', this._openFullscreenImg);
   }
   
-  _togglePopup = (popup) => {
+  _togglePopup(popup) {
     popup.classList.toggle('popup_opened');
   
     document.addEventListener('keydown', handleKeydown);
+    popup.addEventListener('click', handleCloseBtn);
   }
 
-  _generateFullscreenImg = (img) => {
+  _generateFullscreenImg(img) {
     popupImgElement.src = img.src;
     popupImgElement.alt = img.alt;
     popupImgTitle.textContent = img.alt;
