@@ -1,3 +1,19 @@
+import { toggleSubmitButtonClass } from './index.js';
+
+export function enableValidation({formSelector, ...args}) {
+  // find forms in DOM and create array
+  const formList = Array.from(document.querySelectorAll(formSelector));
+  
+  formList.forEach((formElement) => {
+    formElement.addEventListener('submit', (evt) => {
+      evt.preventDefault(); // prevent default action of submit
+    });
+    
+    // call setEventListeners for every form
+    setEventListeners(formElement, args);
+  });
+}
+
 const showInputError = (formElement, inputElement, errorMessage, {inputErrorClass, errorClass}) => {
   // find error element in form
   const errorList = Array.from(formElement.querySelectorAll(`#${inputElement.id}-error`));
@@ -68,16 +84,3 @@ const setEventListeners = (formElement, {inputSelector, submitButtonSelector, ..
   });
 };
 
-function enableValidation({formSelector, ...args}) {
-  // find forms in DOM and create array
-  const formList = Array.from(document.querySelectorAll(formSelector));
-  
-  formList.forEach((formElement) => {
-    formElement.addEventListener('submit', (evt) => {
-      evt.preventDefault(); // prevent default action of submit
-    });
-    
-    // call setEventListeners for every form
-    setEventListeners(formElement, args);
-  });
-}
