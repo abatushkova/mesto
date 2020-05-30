@@ -1,12 +1,24 @@
+import { Card } from './Card.js';
+// import { enableValidation } from './validate.js';
+
+class InitialCard extends Card {
+  constructor(data, cardSelector) {
+    super(data, cardSelector);
+	}
+}
+
+class UserCard extends Card {
+  constructor(data, cardSelector) {
+    super(data, cardSelector);
+  }
+}
+
 const buttonAdd = document.querySelector('.profile__add-btn');
 const buttonEdit = document.querySelector('.profile__edit-btn');
 const profileAvatar = document.querySelector('.profile__avatar');
 const profileName = document.querySelector('.profile__name');
 const profileInfo = document.querySelector('.profile__info');
 
-const popupImageWindow = document.querySelector('.popup_type_img');
-const imgElement = document.querySelector('.popup__img');
-const imgTitle = document.querySelector('.popup__img-title');
 const popupProfileWindow = document.querySelector('.popup_type_profile');
 const buttonSubmitProfile = document.querySelector('.popup__submit-btn_type_profile');
 const popupCardWindow = document.querySelector('.popup_type_card');
@@ -21,7 +33,6 @@ const inputCardName = cardPopupForm.elements.title;
 const inputCardSrc = cardPopupForm.elements.src;
 
 const cardContainer = document.querySelector('.elements');
-const cardTemplate = document.querySelector('#card').content;
 
 const initialCards = [
   {
@@ -85,7 +96,7 @@ function toggleSubmitButtonClass(buttonElement, state) {
   }
 }
 
-function handleKeydown(evt) {
+export function handleKeydown(evt) {
   if (evt.key === 'Escape') {
     popupWindows.forEach((popup) => {
       popup.classList.remove('popup_opened');
@@ -101,6 +112,7 @@ function togglePopup(popup) {
   document.addEventListener('keydown', handleKeydown);
 }
 
+/*
 function setFullscreenImgContent(evt) {
   imgElement.src = evt.target.src;
   imgElement.alt = evt.target.alt;
@@ -166,7 +178,37 @@ function createInitialCards() {
 };
 
 createInitialCards();
+*/
 
+(function createInitialCards() {
+  initialCards.forEach((item) => {
+    const card = new InitialCard(item, '#card');
+
+    const cardElement = card.generateCard();
+
+    cardContainer.append(cardElement);
+  });
+})();
+
+// createInitialCards();
+
+function formSubmitCard(evt) {
+  evt.preventDefault(); // prevent default action of submit
+  
+  const inputValues = {
+    name: inputCardName.value,
+    link: inputCardSrc.value
+  };
+  const card = new UserCard(inputValues, '#card');
+  const cardElement = card.generateCard();
+
+  cardContainer.prepend(cardElement);
+  
+  togglePopup(popupCardWindow);
+  
+  evt.target.reset(); // clean input value after submit
+}
+/*
 function formSubmitCard(evt) {
   evt.preventDefault(); // prevent default action of submit
   
@@ -177,7 +219,7 @@ function formSubmitCard(evt) {
   
   evt.target.reset(); // clean input value after submit
 }
-
+*/
 function renderCardPopup() {
   cleanCardForm();
   toggleSubmitButtonClass(buttonSubmitCard, false);
@@ -226,4 +268,4 @@ popupWindows.forEach((popup) => {
   });
 });
 
-enableValidation(formArgs);
+// enableValidation(formArgs);
