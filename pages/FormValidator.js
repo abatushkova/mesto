@@ -1,4 +1,3 @@
-
 export class FormValidator {
   constructor(formArgs, popupSelector) {
     this._formSelector = formArgs.formSelector;
@@ -10,7 +9,7 @@ export class FormValidator {
     this._popupSelector = popupSelector;
   }
 
-  _getTemplate() {
+  _getFormTemplate() {
     const form = document
       .querySelector(this._popupSelector)
       .querySelector(this._formSelector);
@@ -23,7 +22,7 @@ export class FormValidator {
   }
 
   _cleanForm() {
-    this._getTemplate();
+    this._getFormTemplate();
     const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
   
     inputList.forEach((inputElement) => {
@@ -82,7 +81,7 @@ export class FormValidator {
   }
 
   _setEventListeners() {
-    this._getTemplate();
+    this._getFormTemplate();
   
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault(); // prevent default action of submit
