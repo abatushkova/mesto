@@ -1,4 +1,4 @@
-import {handleKeydown, handleCloseBtn} from './index.js';
+import { handleKeydown, handleCloseBtn } from './index.js';
 
 const popupImageWindow = document.querySelector('.popup_type_img');
 const popupImgElement = document.querySelector('.popup__img');
@@ -25,13 +25,13 @@ export class Card {
 
   _setEventListeners() {
     this._element.querySelector('.elements__like-btn')
-      .addEventListener('click', this._handleLikeBtn);
+      .addEventListener('click', this._handleLikeBtn.bind(this));
     
     this._element.querySelector('.elements__delete-btn')
-      .addEventListener('click', this._handleDeleteBtn);
+      .addEventListener('click', this._handleDeleteBtn.bind(this));
 
     this._element.querySelector('.elements__img-wrapper')
-      .addEventListener('click', this._openFullscreenImg);
+      .addEventListener('click', this._openFullscreenImg.bind(this));
   }
   
   _togglePopup(popup) {
@@ -47,18 +47,18 @@ export class Card {
     popupImgTitle.textContent = img.alt;
   }
 
-  _openFullscreenImg = (evt) => {
+  _openFullscreenImg(evt) {
     evt.preventDefault();
 
     this._generateFullscreenImg(evt.target);
     this._togglePopup(popupImageWindow);
   }
   
-  _handleLikeBtn = () => {
+  _handleLikeBtn() {
     this._element.querySelector('.elements__like-btn').classList.toggle('elements__like-btn_active');
   }
 
-  _handleDeleteBtn = () => {
+  _handleDeleteBtn() {
     this._element.removeEventListener('click', this._openFullscreenImg);
     this._element.removeEventListener('click', this._handleLikeBtn);
     this._element.removeEventListener('click', this._handleDeleteBtn);
@@ -78,6 +78,3 @@ export class Card {
     return this._element;
   }
 }
-
-
-
