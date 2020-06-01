@@ -1,7 +1,12 @@
 .profile__info {
+  width: 100%;
   margin: .625rem 0 0;
   color: #fff;
   font: 14px/17px 'Inter', Arial, sans-serif;
+  -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media screen and (min-width: 768px) {
