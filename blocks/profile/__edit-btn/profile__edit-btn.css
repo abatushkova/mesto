@@ -1,4 +1,7 @@
 .profile__edit-btn {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
   width: 1.125rem;
   height: 1.125rem;
   padding: 0;
@@ -8,7 +11,6 @@
   background-color: transparent;
   background-repeat: no-repeat;
   background-size: cover;
-  vertical-align: text-bottom;
   opacity: 1;
   transition: opacity .1s cubic-bezier(.0,.0,.2,1) 0s;
   will-change: opacity;
