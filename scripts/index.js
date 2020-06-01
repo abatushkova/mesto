@@ -1,35 +1,6 @@
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 
-class InitialCard extends Card {
-  constructor(data, cardSelector) {
-    super(data, cardSelector);
-	}
-}
-
-class UserCard extends Card {
-  constructor(data, cardSelector) {
-    super(data, cardSelector);
-  }
-}
-
-class CardFormValidator extends FormValidator {
-  constructor(formArgs, popupSelector) {
-    super(formArgs, popupSelector);
-  }
-}
-
-class ProfileFormValidator extends FormValidator {
-  constructor(formArgs, popupSelector) {
-    super(formArgs, popupSelector);
-  }
-
-  _setInputValues() {
-    inputProfileName.value = profileName.textContent;
-    inputProfileInfo.value = profileInfo.textContent;
-  }
-}
-
 const buttonAdd = document.querySelector('.profile__add-btn');
 const buttonEdit = document.querySelector('.profile__edit-btn');
 const profileAvatar = document.querySelector('.profile__avatar');
@@ -85,8 +56,8 @@ const formArgs = {
   errorClass: 'popup__error_visible'
 };
 
-const cardValidator = new CardFormValidator(formArgs, '.popup_type_card');
-const profileValidator = new ProfileFormValidator(formArgs, '.popup_type_profile');
+const cardValidator = new FormValidator(formArgs, '.popup_type_card');
+const profileValidator = new FormValidator(formArgs, '.popup_type_profile');
 
 export function handleKeydown(evt) {
   if (evt.key === 'Escape') {
@@ -116,24 +87,24 @@ function togglePopup(popup) {
   popup.addEventListener('click', handleCloseBtn);
 }
 
-(function createInitialCards() {
+function createInitialCards() {
   initialCards.forEach((item) => {
-    const card = new InitialCard(item, '#card');
+    const card = new Card(item, '#card');
 
     const cardElement = card.generateCard();
 
     cardContainer.append(cardElement);
   });
-})();
+};
 
 function formSubmitCard(evt) {
-  evt.preventDefault(); // prevent default action of submit
+  evt.preventDefault(); // prevent default action on submit
   
   const inputValues = {
     name: inputCardName.value,
     link: inputCardSrc.value
   };
-  const card = new UserCard(inputValues, '#card');
+  const card = new Card(inputValues, '#card');
   const cardElement = card.generateCard();
 
   cardContainer.prepend(cardElement);
@@ -144,16 +115,13 @@ function formSubmitCard(evt) {
 }
 
 function renderCardPopup() {
-  cardValidator._cleanForm();
-  cardValidator._toggleBtnState();
-
   togglePopup(popupCardWindow);
   
   popupCardWindow.addEventListener('submit', formSubmitCard);
 }
 
 function formSubmitProfile(evt) {
-  evt.preventDefault(); // prevent default action of submit
+  evt.preventDefault(); // prevent default action on submit
 
   profileAvatar.alt = inputProfileName.value;
   profileName.textContent = inputProfileName.value;
@@ -164,11 +132,13 @@ function formSubmitProfile(evt) {
   evt.target.reset(); // clean input value after submit
 }
 
+function setInitialInputValues() {
+  inputProfileName.value = profileName.textContent;
+  inputProfileInfo.value = profileInfo.textContent;
+}
+
 function renderProfilePopup() {
-  profileValidator._cleanForm();
-  profileValidator._setInputValues();
-  profileValidator._toggleBtnState();
-  
+  setInitialInputValues();
   togglePopup(popupProfileWindow);
 
   popupProfileWindow.addEventListener('submit', formSubmitProfile);
@@ -179,3 +149,5 @@ buttonEdit.addEventListener('click', renderProfilePopup);
 
 cardValidator.enableValidation();
 profileValidator.enableValidation();
+
+createInitialCards();

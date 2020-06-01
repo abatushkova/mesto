@@ -10,22 +10,25 @@ export class FormValidator {
   }
 
   _getFormTemplate() {
-    const form = document
-      .querySelector(this._popupSelector)
-      .querySelector(this._formSelector);
+    const popup = document.querySelector(this._popupSelector);
+    const form = popup.querySelector(this._formSelector);
     const inputList = Array.from(form.querySelectorAll(this._inputSelector));
     const button = form.querySelector(this._submitBtnSelector);
 
+    this._popup = popup
     this._formElement = form;
     this._inputList = inputList;
     this._buttonElement = button;
   }
 
+  _isOpen() {
+    if (!this._popup.classList.contains('popup_opened')) {
+      this._cleanForm();
+    }
+  }
+
   _cleanForm() {
-    this._getFormTemplate();
-    const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-  
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       inputElement.value = ''; // clean input value
 
       this._hideInputError(inputElement);
@@ -56,7 +59,7 @@ export class FormValidator {
     });
   };
 
-  _isValid = (inputElement) => {
+  _isValid(inputElement) {
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement, inputElement.validationMessage);
     } else {
@@ -70,38 +73,38 @@ export class FormValidator {
     });
   }
 
-  _toggleBtnState = () => {
+  _toggleBtnState() {
     if (this._hasInvalidInput(this._inputList)) {
-      this._buttonElement.setAttribute('disabled', true);
-      this._buttonElement.classList.add(this._inactiveSubmitClass);
-    } else {
+      this._buttonElement.setAttribute('disabled', true); 
+      this._buttonElement.classList.add(this._inactiveSubmitClass); 
+      } else {
       this._buttonElement.removeAttribute('disabled');
-      this._buttonElement.classList.remove(this._inactiveSubmitClass);
+      this._buttonElement.classList.remove(this._inactiveSubmitClass); 
     }
-  }
+  }  
 
   _setEventListeners() {
-    this._getFormTemplate();
-  
-    this._formElement.addEventListener('submit', (evt) => {
-      evt.preventDefault(); // prevent default action of submit
+    this._popup.addEventListener('transitionrun', () => {
+      this._toggleBtnState();
+    });
+    this._popup.addEventListener('transitionend', () => {
+      this._isOpen();
     });
 
-    this._toggleBtnState(this._inputList, this._buttonElement);
-  
     this._inputList.forEach((inputElement) => {
-      // set listener to every input on input-event,
       inputElement.addEventListener('input', () => {
-        // check button state
         this._toggleBtnState(this._inputList, this._buttonElement);
-        
-        // call isValid with form and input as params
         this._isValid(inputElement);
       });
     });
   }
 
   enableValidation() {
+    this._getFormTemplate();
     this._setEventListeners();
+
+    this._formElement.addEventListener('submit', (evt) => {
+      evt.preventDefault(); // prevent default action on submit
+    });
   }
 }
