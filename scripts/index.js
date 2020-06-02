@@ -87,15 +87,9 @@ function togglePopup(popup) {
   popup.addEventListener('click', handleCloseBtn);
 }
 
-function createInitialCards() {
-  initialCards.forEach((item) => {
-    const card = new Card(item, '#card');
-
-    const cardElement = card.generateCard();
-
-    cardContainer.append(cardElement);
-  });
-};
+function addUserCard(card, container) {
+  container.prepend(card);
+}
 
 function formSubmitCard(evt) {
   evt.preventDefault(); // prevent default action on submit
@@ -107,8 +101,7 @@ function formSubmitCard(evt) {
   const card = new Card(inputValues, '#card');
   const cardElement = card.generateCard();
 
-  cardContainer.prepend(cardElement);
-  
+  addUserCard(cardElement, cardContainer);
   togglePopup(popupCardWindow);
   
   evt.target.reset(); // clean input value after submit
@@ -150,4 +143,9 @@ buttonEdit.addEventListener('click', renderProfilePopup);
 cardValidator.enableValidation();
 profileValidator.enableValidation();
 
-createInitialCards();
+initialCards.forEach((item) => {
+  const card = new Card(item, '#card');
+  const cardElement = card.generateCard();
+
+  cardContainer.append(cardElement);
+});
