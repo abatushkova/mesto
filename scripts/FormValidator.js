@@ -38,9 +38,9 @@ export class FormValidator {
   _showInputError(inputElement, errorMessage) {
     // find error element in form
     const errorList = Array.from(this._formElement.querySelectorAll(`#${inputElement.id}-error`));
-  
+
     inputElement.classList.add(this._inputErrorClass);
-  
+
     errorList.forEach((errorElement) => {
       errorElement.classList.add(this._errorClass);
       errorElement.textContent = errorMessage;
@@ -50,9 +50,9 @@ export class FormValidator {
   _hideInputError(inputElement) {
     // find error element in form
     const errorList = Array.from(this._formElement.querySelectorAll(`#${inputElement.id}-error`));
-  
+
     inputElement.classList.remove(this._inputErrorClass);
-  
+
     errorList.forEach((errorElement) => {
       errorElement.classList.remove(this._errorClass);
       errorElement.textContent = '';
@@ -75,13 +75,13 @@ export class FormValidator {
 
   _toggleBtnState() {
     if (this._hasInvalidInput(this._inputList)) {
-      this._buttonElement.setAttribute('disabled', true); 
-      this._buttonElement.classList.add(this._inactiveSubmitClass); 
-      } else {
+      this._buttonElement.setAttribute('disabled', true);
+      this._buttonElement.classList.add(this._inactiveSubmitClass);
+    } else {
       this._buttonElement.removeAttribute('disabled');
-      this._buttonElement.classList.remove(this._inactiveSubmitClass); 
+      this._buttonElement.classList.remove(this._inactiveSubmitClass);
     }
-  }  
+  }
 
   _setEventListeners() {
     this._popup.addEventListener('transitionrun', () => {

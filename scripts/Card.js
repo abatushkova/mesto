@@ -36,7 +36,7 @@ export class Card {
   
   _togglePopup(popup) {
     popup.classList.toggle('popup_opened');
-  
+
     document.addEventListener('keydown', handleKeydown);
     popup.addEventListener('click', handleCloseBtn);
   }

@@ -103,13 +103,13 @@ function formSubmitCard(evt) {
 
   addUserCard(cardElement, cardContainer);
   togglePopup(popupCardWindow);
-  
+
   evt.target.reset(); // clean input value after submit
 }
 
 function renderCardPopup() {
   togglePopup(popupCardWindow);
-  
+
   popupCardWindow.addEventListener('submit', formSubmitCard);
 }
 
@@ -119,7 +119,7 @@ function formSubmitProfile(evt) {
   profileAvatar.alt = inputProfileName.value;
   profileName.textContent = inputProfileName.value;
   profileInfo.textContent = inputProfileInfo.value;
-  
+
   togglePopup(popupProfileWindow);
 
   evt.target.reset(); // clean input value after submit
