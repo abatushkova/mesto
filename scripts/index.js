@@ -77,7 +77,7 @@ export function handleCloseBtn(evt) {
     evt.currentTarget.classList.remove('popup_opened');
 
     document.removeEventListener('click', handleCloseBtn);
-  }  
+  }
 }
 
 function togglePopup(popup) {

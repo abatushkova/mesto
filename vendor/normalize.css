@@ -200,6 +200,13 @@ button,
   outline: 0;
 }
 
+button:focus,
+[type="button"]:focus,
+[type="reset"]:focus,
+[type="submit"]:focus {
+  outline: 1px dotted ButtonText;
+}
+
 /**
  * Remove the inner border and padding in Firefox.
  */

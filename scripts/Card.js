@@ -26,7 +26,7 @@ export class Card {
   _setEventListeners() {
     this._element.querySelector('.elements__like-btn')
       .addEventListener('click', this._handleLikeBtn.bind(this));
-    
+
     this._element.querySelector('.elements__delete-btn')
       .addEventListener('click', this._handleDeleteBtn.bind(this));
 
@@ -53,7 +53,7 @@ export class Card {
     this._generateFullscreenImg(evt.target);
     this._togglePopup(popupImageWindow);
   }
-  
+
   _handleLikeBtn() {
     this._element.querySelector('.elements__like-btn').classList.toggle('elements__like-btn_active');
   }
