@@ -1,16 +1,11 @@
-import { handleKeydown, handleCloseBtn } from '../pages/index.js';
-
-const popupImageWindow = document.querySelector('.popup_type_img');
-const popupImgElement = document.querySelector('.popup__img');
-const popupImgTitle = document.querySelector('.popup__img-title');
-
-export class Card {
-  constructor(data, cardSelector) {
-    this._href = data.link;
-    this._src = data.link;
-    this._alt = data.name;
-    this._text = data.name;
+export default class Card {
+  constructor(item, cardSelector, handleCardClick) {
+    this._href = item.link;
+    this._src = item.link;
+    this._alt = item.name;
+    this._text = item.name;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -31,27 +26,7 @@ export class Card {
       .addEventListener('click', this._handleDeleteBtn.bind(this));
 
     this._element.querySelector('.elements__img-wrapper')
-      .addEventListener('click', this._openFullscreenImg.bind(this));
-  }
-  
-  _togglePopup(popup) {
-    popup.classList.toggle('popup_opened');
-
-    document.addEventListener('keydown', handleKeydown);
-    popup.addEventListener('click', handleCloseBtn);
-  }
-
-  _generateFullscreenImg(img) {
-    popupImgElement.src = img.src;
-    popupImgElement.alt = img.alt;
-    popupImgTitle.textContent = img.alt;
-  }
-
-  _openFullscreenImg(evt) {
-    evt.preventDefault();
-
-    this._generateFullscreenImg(evt.target);
-    this._togglePopup(popupImageWindow);
+      .addEventListener('click', this._handleCardClick.bind(this));
   }
 
   _handleLikeBtn() {
@@ -59,7 +34,7 @@ export class Card {
   }
 
   _handleDeleteBtn() {
-    this._element.removeEventListener('click', this._openFullscreenImg);
+    this._element.removeEventListener('click', this._handleCardClick);
     this._element.removeEventListener('click', this._handleLikeBtn);
     this._element.removeEventListener('click', this._handleDeleteBtn);
 
