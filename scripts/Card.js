@@ -1,4 +1,4 @@
-import { handleKeydown, handleCloseBtn } from './index.js';
+import { handleKeydown, handleCloseBtn } from '../pages/index.js';
 
 const popupImageWindow = document.querySelector('.popup_type_img');
 const popupImgElement = document.querySelector('.popup__img');
