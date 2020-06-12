@@ -1,11 +1,14 @@
 export default class Card {
-  constructor(item, cardSelector, handleCardClick) {
-    this._href = item.link;
-    this._src = item.link;
-    this._alt = item.name;
-    this._text = item.name;
+  constructor(data, cardSelector, handleCardClick) {
+    this._href = data.link;
+    this._src = data.link;
+    this._alt = data.name;
+    this._text = data.name;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
+    this._handleCardClick = this._handleCardClick.bind(this);
+    this._handleLikeBtn = this._handleLikeBtn.bind(this);
+    this._handleDeleteBtn = this._handleDeleteBtn.bind(this);
   }
 
   _getTemplate() {
@@ -20,13 +23,13 @@ export default class Card {
 
   _setEventListeners() {
     this._element.querySelector('.elements__like-btn')
-      .addEventListener('click', this._handleLikeBtn.bind(this));
+      .addEventListener('click', this._handleLikeBtn);
 
     this._element.querySelector('.elements__delete-btn')
-      .addEventListener('click', this._handleDeleteBtn.bind(this));
+      .addEventListener('click', this._handleDeleteBtn);
 
     this._element.querySelector('.elements__img-wrapper')
-      .addEventListener('click', this._handleCardClick.bind(this));
+      .addEventListener('click', this._handleCardClick);
   }
 
   _handleLikeBtn() {
@@ -34,9 +37,9 @@ export default class Card {
   }
 
   _handleDeleteBtn() {
-    this._element.removeEventListener('click', this._handleCardClick);
     this._element.removeEventListener('click', this._handleLikeBtn);
     this._element.removeEventListener('click', this._handleDeleteBtn);
+    this._element.removeEventListener('click', this._handleCardClick);
 
     this._element.querySelector('.elements__delete-btn').closest('.elements__item').remove();
   }
