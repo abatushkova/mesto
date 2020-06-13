@@ -1,3 +1,10 @@
+import edinburghCastle from '../images/elements/__img/edinburgh_castle.jpg';
+import goldenGate from '../images/elements/__img/golden_gate.jpg';
+import grindaIsland from '../images/elements/__img/grinda_island.jpg';
+import kyoto from '../images/elements/__img/kyoto.jpg';
+import montSaintMichel from '../images/elements/__img/mont-saint-michel.jpg';
+import mountainMatterhorn from '../images/elements/__img/mountain_matterhorn.jpg';
+
 export const buttonAdd = document.querySelector('.profile__add-btn');
 export const buttonEdit = document.querySelector('.profile__edit-btn');
 export const profileAvatar = document.querySelector('.profile__avatar');
@@ -19,27 +26,27 @@ export const cardContainer = document.querySelector('.elements');
 export const initialCards = [
   {
     name: 'Эдинбургский замок',
-    link: './images/elements/__img/edinburgh_castle.jpg'
+    link: edinburghCastle
   },
   {
     name: 'Золотые ворота',
-    link: './images/elements/__img/golden_gate.jpg'
+    link: goldenGate
   },
   {
     name: 'Гринда',
-    link: './images/elements/__img/grinda_island.jpg'
+    link: grindaIsland
   },
   {
     name: 'Кинкаку-дзи',
-    link: './images/elements/__img/kyoto.jpg'
+    link: kyoto
   },
   {
     name: 'Мон-Сен-Мишель',
-    link: './images/elements/__img/mont-saint-michel.jpg'
+    link: montSaintMichel
   },
   {
     name: 'Маттерхорн',
-    link: './images/elements/__img/mountain_matterhorn.jpg'
+    link: mountainMatterhorn
   }
 ];
 
