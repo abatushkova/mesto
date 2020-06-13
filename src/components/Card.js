@@ -1,16 +1,14 @@
-import { handleKeydown, handleCloseBtn } from './index.js';
-
-const popupImageWindow = document.querySelector('.popup_type_img');
-const popupImgElement = document.querySelector('.popup__img');
-const popupImgTitle = document.querySelector('.popup__img-title');
-
-export class Card {
-  constructor(data, cardSelector) {
+export default class Card {
+  constructor(data, cardSelector, handleCardClick) {
     this._href = data.link;
     this._src = data.link;
     this._alt = data.name;
     this._text = data.name;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
+    this._handleCardClick = this._handleCardClick.bind(this);
+    this._handleLikeBtn = this._handleLikeBtn.bind(this);
+    this._handleDeleteBtn = this._handleDeleteBtn.bind(this);
   }
 
   _getTemplate() {
@@ -25,33 +23,13 @@ export class Card {
 
   _setEventListeners() {
     this._element.querySelector('.elements__like-btn')
-      .addEventListener('click', this._handleLikeBtn.bind(this));
+      .addEventListener('click', this._handleLikeBtn);
 
     this._element.querySelector('.elements__delete-btn')
-      .addEventListener('click', this._handleDeleteBtn.bind(this));
+      .addEventListener('click', this._handleDeleteBtn);
 
     this._element.querySelector('.elements__img-wrapper')
-      .addEventListener('click', this._openFullscreenImg.bind(this));
-  }
-  
-  _togglePopup(popup) {
-    popup.classList.toggle('popup_opened');
-
-    document.addEventListener('keydown', handleKeydown);
-    popup.addEventListener('click', handleCloseBtn);
-  }
-
-  _generateFullscreenImg(img) {
-    popupImgElement.src = img.src;
-    popupImgElement.alt = img.alt;
-    popupImgTitle.textContent = img.alt;
-  }
-
-  _openFullscreenImg(evt) {
-    evt.preventDefault();
-
-    this._generateFullscreenImg(evt.target);
-    this._togglePopup(popupImageWindow);
+      .addEventListener('click', this._handleCardClick);
   }
 
   _handleLikeBtn() {
@@ -59,9 +37,9 @@ export class Card {
   }
 
   _handleDeleteBtn() {
-    this._element.removeEventListener('click', this._openFullscreenImg);
     this._element.removeEventListener('click', this._handleLikeBtn);
     this._element.removeEventListener('click', this._handleDeleteBtn);
+    this._element.removeEventListener('click', this._handleCardClick);
 
     this._element.querySelector('.elements__delete-btn').closest('.elements__item').remove();
   }
