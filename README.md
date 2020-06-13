@@ -9,10 +9,11 @@ git clone https://github.com/abatushkova/mesto
 ```
 npm run build
 ```
-3. Open an html file in browser
+3. Open an html file in browser to look at website
 ```
 ./dist/index.html
 ```
+or click the link down below
 ## About the Project
 Mesto is designed to be flexible and readable on desktop, tablet, mobile devices. Grid and flexbox layouts, responsive meta tag, media queries, relative units help with this mission and "mobile first" concept is a start.  
 Adding different states, such as focus, hover, active, to buttons creates interactivity on webpage.  
@@ -33,4 +34,4 @@ Design mockup is created with Figma by Praktikum specialists.
 ## Credits
 Alena Batushkova - junior web developer
 ## Links
-[Mesto webpage](https://abatushkova.github.io/mesto/index.html)
+[Mesto website](https://abatushkova.github.io/mesto)
