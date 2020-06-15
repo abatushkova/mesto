@@ -21,37 +21,41 @@ export default class Card {
     this._element = cardElement;
   }
 
+  _getComponents() {
+    this._buttonLike = this._element.querySelector('.elements__like-btn');
+    this._buttonDelete = this._element.querySelector('.elements__delete-btn');
+    this._imgWrapper = this._element.querySelector('.elements__img-wrapper');
+    this._imgElement = this._element.querySelector('.elements__img');
+    this._imgTitle = this._element.querySelector('.elements__title');
+  }
+
   _setEventListeners() {
-    this._element.querySelector('.elements__like-btn')
-      .addEventListener('click', this._handleLikeBtn);
-
-    this._element.querySelector('.elements__delete-btn')
-      .addEventListener('click', this._handleDeleteBtn);
-
-    this._element.querySelector('.elements__img-wrapper')
-      .addEventListener('click', this._handleCardClick);
+    this._buttonLike.addEventListener('click', this._handleLikeBtn);
+    this._buttonDelete.addEventListener('click', this._handleDeleteBtn);
+    this._imgWrapper.addEventListener('click', this._handleCardClick);
   }
 
   _handleLikeBtn() {
-    this._element.querySelector('.elements__like-btn').classList.toggle('elements__like-btn_active');
+    this._buttonLike.classList.toggle('elements__like-btn_active');
   }
 
   _handleDeleteBtn() {
-    this._element.removeEventListener('click', this._handleLikeBtn);
-    this._element.removeEventListener('click', this._handleDeleteBtn);
-    this._element.removeEventListener('click', this._handleCardClick);
+    this._buttonLike.removeEventListener('click', this._handleLikeBtn);
+    this._buttonDelete.removeEventListener('click', this._handleDeleteBtn);
+    this._imgWrapper.removeEventListener('click', this._handleCardClick);
 
-    this._element.querySelector('.elements__delete-btn').closest('.elements__item').remove();
+    this._buttonDelete.closest('.elements__item').remove();
   }
 
   generateCard() {
     this._getTemplate();
+    this._getComponents();
     this._setEventListeners();
 
-    this._element.querySelector('.elements__img-wrapper').href = this._href;
-    this._element.querySelector('.elements__img').src = this._src;
-    this._element.querySelector('.elements__img').alt = this._alt;
-    this._element.querySelector('.elements__title').textContent = this._text;
+    this._imgWrapper.href = this._href;
+    this._imgElement.src = this._src;
+    this._imgElement.alt = this._alt;
+    this._imgTitle.textContent = this._text;
 
     return this._element;
   }

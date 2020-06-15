@@ -24,10 +24,9 @@ import {
 
 const cardValidator = new FormValidator(formArgs, '.popup_type_card');
 const profileValidator = new FormValidator(formArgs, '.popup_type_profile');
+const imgPopup = new PopupWithImg(popupImageWindow);
 
 const handleCardClick = (evt) => {
-  const imgPopup = new PopupWithImg(popupImageWindow);
-
   imgPopup.open(evt);
 }
 
