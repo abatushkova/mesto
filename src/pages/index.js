@@ -28,7 +28,7 @@ const profileValidator = new FormValidator(formArgs, '.popup_type_profile');
 const handleCardClick = (evt) => {
   const imgPopup = new PopupWithImg(popupImageWindow);
 
-  imgPopup.openPopup(evt);
+  imgPopup.open(evt);
 }
 
 const initialCardList = new Section({
@@ -62,7 +62,7 @@ const cardPopup = new PopupWithForm(
 );
 
 const renderCardPopup = () => {
-  cardPopup.openPopup();
+  cardPopup.open();
 }
 
 const profile = new UserInfo({
@@ -85,7 +85,7 @@ const renderProfilePopup = () => {
   inputProfileName.value = profileElement.name;
   inputProfileInfo.value = profileElement.info;
 
-  profilePopup.openPopup();
+  profilePopup.open();
 }
 
 buttonAdd.addEventListener('click', renderCardPopup);

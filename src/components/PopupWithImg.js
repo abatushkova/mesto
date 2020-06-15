@@ -9,13 +9,13 @@ export default class PopupWithImg extends Popup {
     super(popupSelector);
   }
 
-  openPopup(evt) {
+  open(evt) {
     evt.preventDefault();
 
     popupImgElement.src = evt.target.src;
     popupImgElement.alt = evt.target.alt;
     popupImgTitle.textContent = evt.target.alt;
 
-    super.openPopup();
+    super.open();
   }
 }
