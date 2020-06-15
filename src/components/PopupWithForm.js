@@ -22,7 +22,7 @@ export default class PopupWithForm extends Popup {
     evt.preventDefault();
 
     this._handleFormSubmit(this._getInputValues());
-    this.closePopup();
+    this.close();
 
     evt.target.reset();
   }
@@ -33,9 +33,9 @@ export default class PopupWithForm extends Popup {
     this._popupSelector.addEventListener('submit', this._handleBtnSubmit);  
   }
 
-  closePopup() {
+  close() {
     this._popupSelector.removeEventListener('submit', this._handleBtnSubmit);
 
-    super.closePopup();
+    super.close();
   }
 }
