@@ -1,9 +1,9 @@
 .elements__delete-btn {
   position: absolute;
-  top: .75rem;
-  right: .5rem;
-  width: 2rem;
-  height: 2rem;
+  top: 1rem;
+  right: .75rem;
+  width: 1.5rem;
+  height: 1.5rem;
   padding: 0;
   border: 0;
   background-image: url(../../../images/elements/__delete-btn/delete.svg);

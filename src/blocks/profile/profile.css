@@ -1,4 +1,6 @@
 @import './__avatar/profile__avatar.css';
+@import './__img/profile__img.css';
+@import './__update-av-btn/profile__update-av-btn.css';
 @import './__details/profile__details.css';
 @import './__name/profile__name.css';
 @import './__info/profile__info.css';
