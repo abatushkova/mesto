@@ -3,6 +3,7 @@
 @import './__input/popup__input.css';
 @import './__input/_type/popup__input_type_error.css';
 @import './__submit-btn/popup__submit-btn.css';
+@import './__submit-btn/_type/popup__submit-btn_type_confirm.css';
 @import './__submit-btn/_disabled/popup__submit-btn_disabled.css';
 @import './__error/popup__error.css';
 @import './__error/_visible/popup__error_visible.css';
