@@ -12,7 +12,10 @@
   </header>
   <main class="container">
     <section class="profile container__profile">
-      <img src="./images/profile/__avatar/avatar.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
+      <div class="profile__avatar">
+        <img src="./images/profile/__img/avatar.jpg" alt="Жак-Ив Кусто" class="profile__img">
+        <button type="button" class="profile__update-av-btn" title="Сменить аватар"></button>
+      </div>
       <div class="profile__details">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <button type="button" class="profile__edit-btn" title="Редактировать профиль"></button>
@@ -69,7 +72,10 @@
       </a>
       <div class="elements__info">
         <h2 class="elements__title"></h2>
-        <button type="button" class="elements__like-btn" title="Мне нравится"></button>
+        <div class="elements__like">
+          <button type="button" class="elements__like-btn" title="Мне нравится"></button>
+          <span class="elements__like-count"></span>
+        </div>
       </div>
       <button type="button" class="elements__delete-btn" title="Удалить"></button>
     </div>

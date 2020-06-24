@@ -7,7 +7,7 @@ import mountainMatterhorn from '../images/elements/__img/mountain_matterhorn.jpg
 
 export const buttonAdd = document.querySelector('.profile__add-btn');
 export const buttonEdit = document.querySelector('.profile__edit-btn');
-export const profileAvatar = document.querySelector('.profile__avatar');
+export const profileAvatar = document.querySelector('.profile__img');
 export const profileName = document.querySelector('.profile__name');
 export const profileInfo = document.querySelector('.profile__info');
 
