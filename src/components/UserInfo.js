@@ -1,3 +1,5 @@
+import { inputProfileName, inputProfileInfo } from '../utils/constants.js';
+
 export default class UserInfo {
   constructor({ userName, userInfo, userImg }) {
     this._name = userName;
@@ -6,17 +8,17 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    this._element = {
-      name: this._name.textContent,
-      info: this._info.textContent
-    }
+    inputProfileName.value = this._name.textContent;
+    inputProfileInfo.value = this._info.textContent;
+  }
 
-    return this._element;
+  setUserAvatar(data) {
+    this._img.src = data.avatar;
   }
 
   setUserInfo(data) {
     this._img.alt = data.name;
     this._name.textContent = data.name;
-    this._info.textContent = data.info;
+    this._info.textContent = data.about;
   }
 }
