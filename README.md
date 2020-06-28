@@ -17,7 +17,8 @@ or click the link down below
 ## About the Project
 Mesto is designed to be flexible and readable on desktop, tablet, mobile devices. Grid and flexbox layouts, responsive meta tag, media queries, relative units help with this mission and "mobile first" concept is a start.  
 Adding different states, such as focus, hover, active, to buttons creates interactivity on webpage.  
-Adding javascript makes pop-ups visible and hidden with fade effect, gives functionality to edit profile name and job description, to add new cards, to validate forms, to view images in fullscreen.  
+Adding javascript makes pop-ups visible and hidden with fade effect, gives functionality to edit profile name, description and avatar, to add new cards, to validate forms, to view images in fullscreen, to click Like or delete cards.  
+Communication with server is configured.  
 ## Built with
 - flexbox layout
 - grid layout
