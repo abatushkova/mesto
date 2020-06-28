@@ -1,10 +1,3 @@
-import edinburghCastle from '../images/elements/__img/edinburgh_castle.jpg';
-import goldenGate from '../images/elements/__img/golden_gate.jpg';
-import grindaIsland from '../images/elements/__img/grinda_island.jpg';
-import kyoto from '../images/elements/__img/kyoto.jpg';
-import montSaintMichel from '../images/elements/__img/mont-saint-michel.jpg';
-import mountainMatterhorn from '../images/elements/__img/mountain_matterhorn.jpg';
-
 export const buttonAdd = document.querySelector('.profile__add-btn');
 export const buttonEdit = document.querySelector('.profile__edit-btn');
 export const buttonUpdateAv = document.querySelector('.profile__update-av-btn');
@@ -27,33 +20,6 @@ export const inputProfileName = profilePopupForm.elements.name;
 export const inputProfileInfo = profilePopupForm.elements.about;
 
 export const cardContainer = document.querySelector('.elements');
-
-export const initialCards = [
-  {
-    name: 'Эдинбургский замок',
-    link: edinburghCastle
-  },
-  {
-    name: 'Золотые ворота',
-    link: goldenGate
-  },
-  {
-    name: 'Гринда',
-    link: grindaIsland
-  },
-  {
-    name: 'Кинкаку-дзи',
-    link: kyoto
-  },
-  {
-    name: 'Мон-Сен-Мишель',
-    link: montSaintMichel
-  },
-  {
-    name: 'Маттерхорн',
-    link: mountainMatterhorn
-  }
-];
 
 export const formArgs = {
   formSelector: '.popup__form',

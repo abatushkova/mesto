@@ -25,12 +25,6 @@ export default class Api  {
     });
   }
 
-  getOwnerId(url) {
-    return this._fetch(url, {
-      method: 'GET'
-    });
-  }
-
   getInitialUserInfo(url) {
     return this._fetch(url, {
       method: 'GET'

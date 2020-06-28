@@ -1,10 +1,16 @@
-import { inputProfileName, inputProfileInfo } from '../utils/constants.js';
+import {
+  profileAvatar,
+  profileName,
+  profileInfo,
+  inputProfileName, 
+  inputProfileInfo
+} from '../utils/constants.js';
 
 export default class UserInfo {
-  constructor({ userName, userInfo, userImg }) {
-    this._name = userName;
-    this._info = userInfo;
-    this._img = userImg;
+  constructor() {
+    this._name = profileName;
+    this._info = profileInfo;
+    this._img = profileAvatar;
   }
 
   getUserInfo() {

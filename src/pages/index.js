@@ -3,7 +3,7 @@ import './index.css';
 import Api from '../components/Api.js';
 import FormValidator from '../components/FormValidator.js';
 import Card from '../components/Card.js';
-// import Section from '../components/Section.js';
+import Section from '../components/Section.js';
 import PopupWithImg from '../components/PopupWithImg.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithConfirm from '../components/PopupWithConfirm.js';
@@ -14,12 +14,6 @@ import {
   buttonSubmit,
   buttonUpdateAv,
   formArgs,
-  // inputProfileName,
-  // inputProfileInfo,
-  profileAvatar,
-  profileName,
-  profileInfo,
-  // initialCards,
   cardContainer,
   popupImageWindow,
   popupProfileWindow,
@@ -31,162 +25,103 @@ import {
 const cardValidator = new FormValidator(formArgs, '.popup_type_card');
 const profileValidator = new FormValidator(formArgs, '.popup_type_profile');
 const avatarValidator = new FormValidator(formArgs, '.popup_type_avatar');
-const imgPopup = new PopupWithImg(popupImageWindow);
 
-const profile = new UserInfo({
-  userName: profileName,
-  userInfo: profileInfo,
-  userImg: profileAvatar
-});
+const profile = new UserInfo();
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12',
   headers: {
-    authorization: 'bd0f2499-7585-4f83-9366-da3fa3857f94'
+    authorization: 'bd0f2499-7585-4f83-9366-da3fa3857f94',
+    'Cache-Control': 'no-cache'
   }
 });
-// likeCount: handleLikeCount,
-// likeActive: setLikeActive
-
-// function handlePutLike(id) {
-//   return api.putLike('/cards/likes/' + id)
-//   .catch(err => console.error(err));
-// }
-
-// function handleDeleteLike(id) {
-//   return api.deleteLike('/cards/likes/' + id)
-//   .catch(err => console.error(err));
-// }
-
-// function handleLikeCount() {
-
-// }
-// const id = api.getOwnerId('/users/me')
-//   .then(owner => showOwnerId(owner._id))
-//   .catch(err => console.error(err)); 
 
 let ownerId;
 
-api.getOwnerId('/users/me')
-.then(user => {
+function setOwnerId(user) {
   ownerId = user._id;
-})
-.catch(err => console.error(err)); 
-
-
-// console.log(ownerId);
-
-// api.getOwnerId('/users/me')
-// .then(owner => {
-//   if (this._ownerId !== owner._id) {
-//     this._buttonDelete.remove();
-//   }
-// })
-// .catch(err => console.error(err));
-
-// const renderOwnerId = () => {
-//   api.getOwnerId('/users/me')
-//   .then(owner => owner._id)
-//   .catch(renderError);
-// }
-
-// console.log(renderOwnerId);
-
-
-function renderLoading(isLoading, text) {
-  if (isLoading) {
-    (text === 'Сохранить') ?
-      buttonSubmit.textContent = 'Сохранение...' :
-      buttonSubmit.textContent = 'Создание...';
-  } else {
-    buttonSubmit.textContent = text;
-  }
 }
 
-function renderError(err) {
+function logError(err) {
   console.error(err);
 };
 
-const renderUserInfo = (user) => {
+function setInitialUser(user) {
   profile.setUserInfo(user);
   profile.setUserAvatar(user);
 };
 
 api.getInitialUserInfo('/users/me')
-.then(renderUserInfo)
-.catch(renderError);
+.then(user => {
+  setOwnerId(user);
+  setInitialUser(user);
+})
+.catch(logError);
 
-const handleCardClick = (evt) => {
+const imgPopup = new PopupWithImg(popupImageWindow);
+
+const renderImgPopup = (evt) => {
   imgPopup.open(evt);
 };
 
-const handleConfirmClick = (item) => {
-  api.deleteCard('/cards' + item._id);
-}
+const confirmPopup = new PopupWithConfirm(popupConfirmWindow);
 
-const confirmPopup = new PopupWithConfirm(popupConfirmWindow, handleConfirmClick);
-
-const handleDeleteBtnClick = (card) => {
-  confirmPopup.open();
-
-  api.deleteCard('/cards/' + card._id)
-  handleConfirmBtnClick();
+const renderConfirmPopup = (callback) => {
+  confirmPopup.open(callback);
 };
-
 
 const renderInitialCards = (cardList) => {
-  cardList.forEach((item) => {
-    const card = new Card(item, '#card', api, {
-      cardClick: handleCardClick,
-      deleteClick: handleDeleteBtnClick,
-      // likeCount: handleLikeCount,
-      ownerId: ownerId,
-    });
-    const cardElement = card.generateCard();
+  const initialCardList = new Section({
+    items: cardList,
+    renderer: (item) => {
+      const card = new Card(item, '#card', api, {
+        handleCardClick: renderImgPopup,
+        renderConfirmPopup: renderConfirmPopup,
+        ownerId: ownerId
+      });
+      const cardElement = card.generateCard();
 
-    cardContainer.append(cardElement);
-  })
-};
+      initialCardList.addItem(cardElement);
+    }
+  }, cardContainer);
+
+  return initialCardList;
+}
 
 api.getInitialCards('/cards')
 .then(renderInitialCards)
-.catch(renderError);
+.then(initialCardList => initialCardList.renderItems())
+.catch(logError);
 
 const addUserCard = (card, container) => {
   container.prepend(card);
 };
 
+const renderUserCard = (card) => {
+  const userCard = new Card(card, '#card', api, {
+    handleCardClick: renderImgPopup,
+    renderConfirmPopup: renderConfirmPopup,
+    ownerId: ownerId
+  });
+  const cardElement = userCard.generateCard();
+
+  addUserCard(cardElement, cardContainer);
+}
+
+const renderLoading = (isLoading, text) => {
+  buttonSubmit.textContent = isLoading
+    ? (text === 'Сохранить'
+      ? 'Сохранение...'
+      : 'Создание...')
+    : text;
+}
+
 const handleCardFormSubmit = (formValues) => {
-  const inputValues = {
-    name: formValues.title,
-    link: formValues.src,
-    likes: []
-  };
-
-  // const userCard = new Card(inputValues, '#card', api, {
-  //   cardClick: handleCardClick,
-  //   deleteClick: handleDeleteBtnClick,
-  //   ownerId: ownerId,
-
-  // });
-  // const cardElement = userCard.generateCard();
-
   renderLoading(true, 'Создать');
-  // addUserCard(cardElement, cardContainer);
 
   api.postUserCard('/cards', formValues)
-  .then(card => {
-    const userCard = new Card(card, '#card', api, {
-      cardClick: handleCardClick,
-      deleteClick: handleDeleteBtnClick,
-      ownerId: ownerId,
-  
-    });
-    const cardElement = userCard.generateCard();
-  
-    addUserCard(cardElement, cardContainer);
-  })
-  .catch(renderError)
+  .then(renderUserCard)
+  .catch(logError)
   .finally(() => renderLoading(false, 'Создать'));
 };
 
@@ -204,7 +139,7 @@ const handleProfileFormSubmit = (formValues) => {
   profile.setUserInfo(formValues);
 
   api.updateUserInfo('/users/me', formValues)
-  .catch(renderError)
+  .catch(logError)
   .finally(() => renderLoading(false, 'Сохранить'));
 };
 
@@ -214,7 +149,6 @@ const profilePopup = new PopupWithForm(
 
 const renderProfilePopup = () => {
   profile.getUserInfo();
-
   profilePopup.open();
 };
 
@@ -224,7 +158,7 @@ const handleAvatarFormSubmit = (formValues) => {
   profile.setUserAvatar(formValues);
 
   api.updateUserAvatar('/users/me/avatar', formValues)
-  .catch(renderError)
+  .catch(logError)
   .finally(() => renderLoading(false, 'Сохранить'));
 }
 
