@@ -71,13 +71,14 @@ export default class Card {
   }
 
   _handleConfirmBtn() {
-    this._buttonLike.removeEventListener('click', this._handleLikeBtn);
-    this._buttonDelete.removeEventListener('click', this._handleDeleteBtn);
-    this._imgWrapper.removeEventListener('click', this._handleCardClick);
+    this._api.deleteCard(this._cardId)
+    .then(() => {
+      this._buttonLike.removeEventListener('click', this._handleLikeBtn);
+      this._buttonDelete.removeEventListener('click', this._handleDeleteBtn);
+      this._imgWrapper.removeEventListener('click', this._handleCardClick);
 
-    this._buttonDelete.closest('.elements__item').remove();
-
-    this._api.deleteCard('/cards/' + this._cardId)
+      this._buttonDelete.closest('.elements__item').remove();
+    })
     .catch(err => console.error(err));
   }
 

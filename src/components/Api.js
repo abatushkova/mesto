@@ -5,14 +5,11 @@ export default class Api  {
   }
 
   _fetch(url, params) {
-    params.headers = this._headers;
-
-    if (params.body) {
-      params.headers['Content-Type'] = 'application/json';
-      params.body = JSON.stringify(params.body);
-    }
-
-    return fetch(this._baseUrl + url, params)
+    return fetch(this._baseUrl + url, {
+      ...params,
+      headers: this._headers,
+      body: JSON.stringify(params.body)
+    })
     .then(response => {
       if (response.ok) {
         return response.json();
@@ -20,9 +17,6 @@ export default class Api  {
 
       return Promise.reject(`Ошибка: ${response.status}`);
     })
-    .catch(error => {
-      console.error(error);
-    });
   }
 
   getInitialUserInfo(url) {
@@ -66,8 +60,8 @@ export default class Api  {
     });
   }
 
-  deleteCard(url) {
-    return this._fetch(url, {
+  deleteCard(cardId) {
+    return this._fetch('/cards/' + cardId, {
       method: 'DELETE'
     });
   }
