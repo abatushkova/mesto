@@ -37,10 +37,10 @@ const api = new Api({
   }
 });
 
-let ownerId;
+let initialUserId;
 
-function setOwnerId(user) {
-  ownerId = user._id;
+function setInitialUserId(user) {
+  initialUserId = user._id;
 }
 
 function logError(err) {
@@ -54,7 +54,7 @@ function setInitialUser(user) {
 
 api.getInitialUserInfo('/users/me')
 .then(user => {
-  setOwnerId(user);
+  setInitialUserId(user);
   setInitialUser(user);
 })
 .catch(logError);
@@ -78,7 +78,8 @@ const renderInitialCards = (cardList) => {
       const card = new Card(item, '#card', api, {
         handleCardClick: renderImgPopup,
         renderConfirmPopup: renderConfirmPopup,
-        ownerId: ownerId
+        cardUserId: item.owner._id,
+        initialUserId: initialUserId
       });
       const cardElement = card.generateCard();
 
@@ -90,6 +91,7 @@ const renderInitialCards = (cardList) => {
 }
 
 api.getInitialCards('/cards')
+.then(cardList => Promise.all(cardList))
 .then(renderInitialCards)
 .then(initialCardList => initialCardList.renderItems())
 .catch(logError);
@@ -102,18 +104,20 @@ const renderUserCard = (card) => {
   const userCard = new Card(card, '#card', api, {
     handleCardClick: renderImgPopup,
     renderConfirmPopup: renderConfirmPopup,
-    ownerId: ownerId
+    cardUserId: card.owner._id,
+    initialUserId: initialUserId
   });
   const cardElement = userCard.generateCard();
 
   addUserCard(cardElement, cardContainer);
 }
 
-const renderLoading = (isLoading, text) => {
-  buttonSubmit.textContent = isLoading
-    ? (text === 'Сохранить'
-      ? 'Сохранение...'
-      : 'Создание...')
+
+
+// будет не нужно после правки
+const renderLoading = (isLoading, text, buttonSubmit) => {
+  buttonSubmit.textContent = isLoading 
+    ? 'Загрузка...' 
     : text;
 }
 
@@ -137,9 +141,8 @@ const renderCardPopup = () => {
 const handleProfileFormSubmit = (formValues) => {
   renderLoading(true, 'Сохранить');
 
-  profile.setUserInfo(formValues);
-
   api.updateUserInfo('/users/me', formValues)
+  .then(user => profile.setUserInfo(user))
   .catch(logError)
   .finally(() => renderLoading(false, 'Сохранить'));
 };
@@ -153,20 +156,21 @@ const renderProfilePopup = () => {
   profilePopup.open();
 };
 
+
+// код ниже правленный
 const handleAvatarFormSubmit = (formValues) => {
-  renderLoading(true, 'Сохранить');
+  // renderLoading(true, 'Сохранить');
 
-  profile.setUserAvatar(formValues);
-
-  api.updateUserAvatar('/users/me/avatar', formValues)
-  .catch(logError)
-  .finally(() => renderLoading(false, 'Сохранить'));
+  return api.updateUserAvatar('/users/me/avatar', formValues)
+  .then(user => profile.setUserAvatar(user))
+  // .catch(logError)
+  // .finally(() => renderLoading(false, 'Сохранить'));
 }
 
 const avatarPopup = new PopupWithForm(popupAvatarWindow, handleAvatarFormSubmit);
 
-const renderAvatarPopup = () => {
-  avatarPopup.open();
+const renderAvatarPopup = (handleAvatarFormSubmit) => {
+  avatarPopup.open(handleAvatarFormSubmit);
 }
 
 buttonAdd.addEventListener('click', renderCardPopup);

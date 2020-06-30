@@ -11,6 +11,7 @@ export default class Api  {
       body: JSON.stringify(params.body)
     })
     .then(response => {
+      console.log(response);
       if (response.ok) {
         return response.json();
       }
