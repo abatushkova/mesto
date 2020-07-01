@@ -4,6 +4,7 @@ import { popupBtnConfirm } from '../utils/constants.js';
 export default class PopupWithConfirm extends Popup {
   constructor(popup) {
     super(popup);
+    this._generateHandleConfirmBtn = this._generateHandleConfirmBtn.bind(this);
   }
 
   _generateHandleConfirmBtn(callback) {

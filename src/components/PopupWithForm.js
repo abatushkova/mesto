@@ -5,6 +5,7 @@ export default class PopupWithForm extends Popup {
     super(popup);
     this._callback = callback;
     this._buttonSubmit = popup.querySelector('.popup__submit-btn');
+    this._generateHandleSubmitBtn = this._generateHandleSubmitBtn.bind(this);
   }
 
   _renderLoading(isLoading, text) {
@@ -24,25 +25,10 @@ export default class PopupWithForm extends Popup {
     return this._formValues;
   }
 
-  // _handleSubmitBtn(evt) {
-  //   evt.preventDefault();
-
-  //   this._handleFormSubmit(this._getInputValues())
-  //   this.close();
-
-  //   evt.target.reset();
-  // }
-
-  // _setEventListeners() {
-  //   super._setEventListeners();
-
-  //   this._popup.addEventListener('submit', this._handleSubmitBtn);  
-  // }
-
   _generateHandleSubmitBtn(callback) {
     const that = this;
     const buttonSubmitText = this._buttonSubmit.textContent;
-    
+
     return function(evt) {
       evt.preventDefault();
       that._renderLoading(true);
@@ -56,7 +42,6 @@ export default class PopupWithForm extends Popup {
         .catch(err => console.error(err))
         .finally(() => that._renderLoading(false, buttonSubmitText))
       }
-      // that._renderLoading(false, buttonSubmitText);
     };
   }
 
@@ -65,11 +50,11 @@ export default class PopupWithForm extends Popup {
 
     this._handleSubmitBtn = this._generateHandleSubmitBtn(callback);
 
-    this._popup.addEventListener('submit', this._handleSubmitBtn.bind(this));  
+    this._popup.addEventListener('submit', this._handleSubmitBtn);  
   }
 
-  open(callback) {
-    this._setEventListeners(callback);
+  open() {
+    this._setEventListeners(this._callback);
 
     this._popup.classList.add('popup_opened');
   }

@@ -11,7 +11,6 @@ import UserInfo from '../components/UserInfo.js';
 import {
   buttonAdd,
   buttonEdit,
-  buttonSubmit,
   buttonUpdateAv,
   formArgs,
   cardContainer,
@@ -112,22 +111,9 @@ const renderUserCard = (card) => {
   addUserCard(cardElement, cardContainer);
 }
 
-
-
-// будет не нужно после правки
-const renderLoading = (isLoading, text, buttonSubmit) => {
-  buttonSubmit.textContent = isLoading 
-    ? 'Загрузка...' 
-    : text;
-}
-
 const handleCardFormSubmit = (formValues) => {
-  renderLoading(true, 'Создать');
-
-  api.postUserCard('/cards', formValues)
+  return api.postUserCard('/cards', formValues)
   .then(renderUserCard)
-  .catch(logError)
-  .finally(() => renderLoading(false, 'Создать'));
 };
 
 const cardPopup = new PopupWithForm(
@@ -139,12 +125,8 @@ const renderCardPopup = () => {
 };
 
 const handleProfileFormSubmit = (formValues) => {
-  renderLoading(true, 'Сохранить');
-
-  api.updateUserInfo('/users/me', formValues)
+  return api.updateUserInfo('/users/me', formValues)
   .then(user => profile.setUserInfo(user))
-  .catch(logError)
-  .finally(() => renderLoading(false, 'Сохранить'));
 };
 
 const profilePopup = new PopupWithForm(
@@ -156,21 +138,17 @@ const renderProfilePopup = () => {
   profilePopup.open();
 };
 
-
-// код ниже правленный
 const handleAvatarFormSubmit = (formValues) => {
-  // renderLoading(true, 'Сохранить');
-
   return api.updateUserAvatar('/users/me/avatar', formValues)
   .then(user => profile.setUserAvatar(user))
-  // .catch(logError)
-  // .finally(() => renderLoading(false, 'Сохранить'));
 }
 
-const avatarPopup = new PopupWithForm(popupAvatarWindow, handleAvatarFormSubmit);
+const avatarPopup = new PopupWithForm(
+  popupAvatarWindow, handleAvatarFormSubmit
+);
 
-const renderAvatarPopup = (handleAvatarFormSubmit) => {
-  avatarPopup.open(handleAvatarFormSubmit);
+const renderAvatarPopup = () => {
+  avatarPopup.open();
 }
 
 buttonAdd.addEventListener('click', renderCardPopup);
