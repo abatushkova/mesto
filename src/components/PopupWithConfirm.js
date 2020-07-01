@@ -2,8 +2,9 @@ import Popup from './Popup.js';
 import { popupBtnConfirm } from '../utils/constants.js';
 
 export default class PopupWithConfirm extends Popup {
-  constructor(popupElement) {
-    super(popupElement);
+  constructor(popup) {
+    super(popup);
+    this._generateHandleConfirmBtn = this._generateHandleConfirmBtn.bind(this);
   }
 
   _generateHandleConfirmBtn(callback) {
@@ -28,7 +29,7 @@ export default class PopupWithConfirm extends Popup {
   open(callback) {
     this._setEventListeners(callback);
 
-    this._popupElement.classList.add('popup_opened');
+    this._popup.classList.add('popup_opened');
   }
 
   close() {

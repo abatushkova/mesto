@@ -5,8 +5,8 @@ import {
 } from '../utils/constants.js';
 
 export default class PopupWithImg extends Popup {
-  constructor(popupElement) {
-    super(popupElement);
+  constructor(popup) {
+    super(popup);
   }
 
   open(evt) {

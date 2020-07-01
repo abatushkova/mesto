@@ -11,7 +11,6 @@ import UserInfo from '../components/UserInfo.js';
 import {
   buttonAdd,
   buttonEdit,
-  buttonSubmit,
   buttonUpdateAv,
   formArgs,
   cardContainer,
@@ -32,14 +31,15 @@ const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12',
   headers: {
     authorization: 'bd0f2499-7585-4f83-9366-da3fa3857f94',
+    'Content-Type': 'application/json',
     'Cache-Control': 'no-cache'
   }
 });
 
-let ownerId;
+let initialUserId;
 
-function setOwnerId(user) {
-  ownerId = user._id;
+function setInitialUserId(user) {
+  initialUserId = user._id;
 }
 
 function logError(err) {
@@ -53,7 +53,7 @@ function setInitialUser(user) {
 
 api.getInitialUserInfo('/users/me')
 .then(user => {
-  setOwnerId(user);
+  setInitialUserId(user);
   setInitialUser(user);
 })
 .catch(logError);
@@ -77,7 +77,8 @@ const renderInitialCards = (cardList) => {
       const card = new Card(item, '#card', api, {
         handleCardClick: renderImgPopup,
         renderConfirmPopup: renderConfirmPopup,
-        ownerId: ownerId
+        cardUserId: item.owner._id,
+        initialUserId: initialUserId
       });
       const cardElement = card.generateCard();
 
@@ -89,6 +90,7 @@ const renderInitialCards = (cardList) => {
 }
 
 api.getInitialCards('/cards')
+.then(cardList => Promise.all(cardList))
 .then(renderInitialCards)
 .then(initialCardList => initialCardList.renderItems())
 .catch(logError);
@@ -101,28 +103,17 @@ const renderUserCard = (card) => {
   const userCard = new Card(card, '#card', api, {
     handleCardClick: renderImgPopup,
     renderConfirmPopup: renderConfirmPopup,
-    ownerId: ownerId
+    cardUserId: card.owner._id,
+    initialUserId: initialUserId
   });
   const cardElement = userCard.generateCard();
 
   addUserCard(cardElement, cardContainer);
 }
 
-const renderLoading = (isLoading, text) => {
-  buttonSubmit.textContent = isLoading
-    ? (text === 'Сохранить'
-      ? 'Сохранение...'
-      : 'Создание...')
-    : text;
-}
-
 const handleCardFormSubmit = (formValues) => {
-  renderLoading(true, 'Создать');
-
-  api.postUserCard('/cards', formValues)
+  return api.postUserCard('/cards', formValues)
   .then(renderUserCard)
-  .catch(logError)
-  .finally(() => renderLoading(false, 'Создать'));
 };
 
 const cardPopup = new PopupWithForm(
@@ -134,13 +125,8 @@ const renderCardPopup = () => {
 };
 
 const handleProfileFormSubmit = (formValues) => {
-  renderLoading(true, 'Сохранить');
-
-  profile.setUserInfo(formValues);
-
-  api.updateUserInfo('/users/me', formValues)
-  .catch(logError)
-  .finally(() => renderLoading(false, 'Сохранить'));
+  return api.updateUserInfo('/users/me', formValues)
+  .then(user => profile.setUserInfo(user))
 };
 
 const profilePopup = new PopupWithForm(
@@ -153,16 +139,13 @@ const renderProfilePopup = () => {
 };
 
 const handleAvatarFormSubmit = (formValues) => {
-  renderLoading(true, 'Сохранить');
-
-  profile.setUserAvatar(formValues);
-
-  api.updateUserAvatar('/users/me/avatar', formValues)
-  .catch(logError)
-  .finally(() => renderLoading(false, 'Сохранить'));
+  return api.updateUserAvatar('/users/me/avatar', formValues)
+  .then(user => profile.setUserAvatar(user))
 }
 
-const avatarPopup = new PopupWithForm(popupAvatarWindow, handleAvatarFormSubmit);
+const avatarPopup = new PopupWithForm(
+  popupAvatarWindow, handleAvatarFormSubmit
+);
 
 const renderAvatarPopup = () => {
   avatarPopup.open();

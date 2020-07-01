@@ -1,6 +1,5 @@
 export default class Card {
   constructor(data, cardSelector, api, options) {
-    this._cardOwner = data.owner;
     this._href = data.link;
     this._src = data.link;
     this._alt = data.name;
@@ -9,7 +8,8 @@ export default class Card {
     this._likeList = data.likes;
     this._cardSelector = cardSelector;
     this._api = api;
-    this._ownerId = options.ownerId;
+    this._cardUserId = options.cardUserId;
+    this._initialUserId = options.initialUserId;
     this._renderConfirmPopup = options.renderConfirmPopup;
     this._handleCardClick = options.handleCardClick;
     this._handleCardClick = this._handleCardClick.bind(this);
@@ -36,7 +36,7 @@ export default class Card {
   }
 
   _getDeleteBtnComponent() {
-    if (this._cardOwner._id === this._ownerId) {
+    if (this._cardUserId === this._initialUserId) {
       this._buttonDelete = this._element.querySelector('.elements__delete-btn');
 
       this._buttonDelete.classList.add('is-visible');
@@ -71,13 +71,14 @@ export default class Card {
   }
 
   _handleConfirmBtn() {
-    this._buttonLike.removeEventListener('click', this._handleLikeBtn);
-    this._buttonDelete.removeEventListener('click', this._handleDeleteBtn);
-    this._imgWrapper.removeEventListener('click', this._handleCardClick);
+    this._api.deleteCard(this._cardId)
+    .then(() => {
+      this._buttonLike.removeEventListener('click', this._handleLikeBtn);
+      this._buttonDelete.removeEventListener('click', this._handleDeleteBtn);
+      this._imgWrapper.removeEventListener('click', this._handleCardClick);
 
-    this._buttonDelete.closest('.elements__item').remove();
-
-    this._api.deleteCard('/cards/' + this._cardId)
+      this._buttonDelete.closest('.elements__item').remove();
+    })
     .catch(err => console.error(err));
   }
 
@@ -87,7 +88,7 @@ export default class Card {
 
   _setLikeBtnActive() {
     this._likeList.forEach(item => {
-      if (item._id === this._ownerId) {
+      if (item._id === this._initialUserId) {
         this._buttonLike.classList.add('elements__like-btn_active');
       }
     });

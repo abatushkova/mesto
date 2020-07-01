@@ -1,7 +1,6 @@
 export const buttonAdd = document.querySelector('.profile__add-btn');
 export const buttonEdit = document.querySelector('.profile__edit-btn');
 export const buttonUpdateAv = document.querySelector('.profile__update-av-btn');
-export const buttonSubmit = document.querySelector('.popup__submit-btn');
 export const profileAvatar = document.querySelector('.profile__img');
 export const profileName = document.querySelector('.profile__name');
 export const profileInfo = document.querySelector('.profile__info');
