@@ -1,21 +1,15 @@
-import {
-  profileAvatar,
-  profileName,
-  profileInfo,
-  inputProfileName, 
-  inputProfileInfo
-} from '../utils/constants.js';
-
 export default class UserInfo {
-  constructor() {
-    this._name = profileName;
-    this._info = profileInfo;
-    this._img = profileAvatar;
+  constructor(options) {
+    this._name = options.userName;
+    this._info = options.userInfo;
+    this._img = options.userAvatar;
+    this._inputName = options.inputName;
+    this._inputInfo = options.inputInfo;
   }
 
   getUserInfo() {
-    inputProfileName.value = this._name.textContent;
-    inputProfileInfo.value = this._info.textContent;
+    this._inputName.value = this._name.textContent;
+    this._inputInfo.value = this._info.textContent;
   }
 
   setUserAvatar(data) {
