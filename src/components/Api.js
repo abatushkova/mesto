@@ -19,20 +19,20 @@ export default class Api  {
     })
   }
 
-  getInitialUserInfo(url) {
-    return this._fetch(url, {
+  getInitialUserInfo() {
+    return this._fetch('/users/me', {
       method: 'GET'
     });
   }
 
-  getInitialCards(url) {
-    return this._fetch(url, {
+  getInitialCards() {
+    return this._fetch('/cards', {
       method: 'GET'
     });
   }
 
-  updateUserInfo(url, user) {
-    return this._fetch(url, {
+  updateUserInfo(user) {
+    return this._fetch('/users/me', {
       method: 'PATCH',
       body: {
         name: user.name,
@@ -41,8 +41,8 @@ export default class Api  {
     });
   }
 
-  updateUserAvatar(url, user) {
-    return this._fetch(url, {
+  updateUserAvatar(user) {
+    return this._fetch('/users/me/avatar', {
       method: 'PATCH',
       body: {
         avatar: user.avatar
@@ -50,8 +50,8 @@ export default class Api  {
     });
   }
 
-  postUserCard(url, card) {
-    return this._fetch(url, {
+  postUserCard(card) {
+    return this._fetch('/cards', {
       method: 'POST',
       body: {
         name: card.title,
@@ -66,14 +66,14 @@ export default class Api  {
     });
   }
 
-  putLike(url) {
-    return this._fetch(url, {
+  putLike(cardId) {
+    return this._fetch('/cards/likes/' + cardId, {
       method: 'PUT'
     });
   }
 
-  deleteLike(url) {
-    return this._fetch(url, {
+  deleteLike(cardId) {
+    return this._fetch('/cards/likes/' + cardId, {
       method: 'DELETE'
     });
   }

@@ -15,18 +15,31 @@ import {
   formArgs,
   cardContainer,
   popupImageWindow,
-  popupProfileWindow,
+  popupImgElement,
+  popupImgTitle,
   popupCardWindow,
   popupConfirmWindow,
-  popupAvatarWindow
+  popupConfirmBtn,
+  popupAvatarWindow,
+  popupProfileWindow,
+  profileName,
+  profileInfo,
+  profileAvatar,
+  inputProfileName,
+  inputProfileInfo
 } from '../utils/constants.js';
 
 const cardValidator = new FormValidator(formArgs, '.popup_type_card');
 const profileValidator = new FormValidator(formArgs, '.popup_type_profile');
 const avatarValidator = new FormValidator(formArgs, '.popup_type_avatar');
 
-const profile = new UserInfo();
-
+const profile = new UserInfo({
+  userName: profileName,
+  userInfo: profileInfo,
+  userAvatar: profileAvatar,
+  inputName: inputProfileName,
+  inputInfo: inputProfileInfo
+});
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12',
   headers: {
@@ -36,119 +49,106 @@ const api = new Api({
   }
 });
 
-let initialUserId;
-
-function setInitialUserId(user) {
-  initialUserId = user._id;
-}
-
-function logError(err) {
-  console.error(err);
-};
+Promise.all([api.getInitialUserInfo(), api.getInitialCards()])
+.then(([user, cards]) => {
+  setInitialUser(user);
+  renderInitialCards(cards, user._id);
+})
+.catch(err => console.error(err));
 
 function setInitialUser(user) {
   profile.setUserInfo(user);
   profile.setUserAvatar(user);
-};
+}
 
-api.getInitialUserInfo('/users/me')
-.then(user => {
-  setInitialUserId(user);
-  setInitialUser(user);
-})
-.catch(logError);
+function renderInitialCards(cards, userId) {
+  const initialCards = new Section({
+    items: cards,
+    renderer: (card) => {
+      const cardElement = createCard(card, userId);
 
-const imgPopup = new PopupWithImg(popupImageWindow);
-
-const renderImgPopup = (evt) => {
-  imgPopup.open(evt);
-};
-
-const confirmPopup = new PopupWithConfirm(popupConfirmWindow);
-
-const renderConfirmPopup = (callback) => {
-  confirmPopup.open(callback);
-};
-
-const renderInitialCards = (cardList) => {
-  const initialCardList = new Section({
-    items: cardList,
-    renderer: (item) => {
-      const card = new Card(item, '#card', api, {
-        handleCardClick: renderImgPopup,
-        renderConfirmPopup: renderConfirmPopup,
-        cardUserId: item.owner._id,
-        initialUserId: initialUserId
-      });
-      const cardElement = card.generateCard();
-
-      initialCardList.addItem(cardElement);
+      initialCards.addItem(cardElement);
     }
   }, cardContainer);
 
-  return initialCardList;
+  initialCards.renderItems();
 }
 
-api.getInitialCards('/cards')
-.then(cardList => Promise.all(cardList))
-.then(renderInitialCards)
-.then(initialCardList => initialCardList.renderItems())
-.catch(logError);
-
-const addUserCard = (card, container) => {
-  container.prepend(card);
-};
-
-const renderUserCard = (card) => {
-  const userCard = new Card(card, '#card', api, {
+function createCard(item, userId) {
+  const card = new Card(item, '#card', api, {
     handleCardClick: renderImgPopup,
     renderConfirmPopup: renderConfirmPopup,
-    cardUserId: card.owner._id,
-    initialUserId: initialUserId
+    initialUserId: userId
   });
-  const cardElement = userCard.generateCard();
+  const cardElement = card.generateCard();
+
+  return cardElement;
+}
+
+const imgPopup = new PopupWithImg(popupImageWindow, {
+  imgElement: popupImgElement,
+  imgTitle: popupImgTitle
+});
+const confirmPopup = new PopupWithConfirm(
+  popupConfirmWindow, popupConfirmBtn
+);
+
+function renderImgPopup(evt) {
+  imgPopup.open(evt);
+}
+
+function renderConfirmPopup(callback) {
+  confirmPopup.open(callback);
+}
+
+function addUserCard(card, container) {
+  container.prepend(card);
+}
+
+function renderUserCard(card, userId) {
+  const cardElement = createCard(card, userId);
 
   addUserCard(cardElement, cardContainer);
 }
-
-const handleCardFormSubmit = (formValues) => {
-  return api.postUserCard('/cards', formValues)
-  .then(renderUserCard)
-};
 
 const cardPopup = new PopupWithForm(
   popupCardWindow, handleCardFormSubmit
 );
 
-const renderCardPopup = () => {
+function renderCardPopup() {
   cardPopup.open();
-};
+}
 
-const handleProfileFormSubmit = (formValues) => {
-  return api.updateUserInfo('/users/me', formValues)
-  .then(user => profile.setUserInfo(user))
-};
+function handleCardFormSubmit(formValues) {
+  return api.postUserCard(formValues)
+  .then(card => renderUserCard(card, card.owner._id));
+}
 
 const profilePopup = new PopupWithForm(
   popupProfileWindow, handleProfileFormSubmit
 );
 
-const renderProfilePopup = () => {
+function renderProfilePopup() {
   profile.getUserInfo();
   profilePopup.open();
-};
+}
 
-const handleAvatarFormSubmit = (formValues) => {
-  return api.updateUserAvatar('/users/me/avatar', formValues)
-  .then(user => profile.setUserAvatar(user))
+function handleProfileFormSubmit(formValues) {
+  return api.updateUserInfo(formValues)
+  .then(user => profile.setUserInfo(user));
 }
 
 const avatarPopup = new PopupWithForm(
   popupAvatarWindow, handleAvatarFormSubmit
 );
 
-const renderAvatarPopup = () => {
+function renderAvatarPopup() {
   avatarPopup.open();
+}
+
+function handleAvatarFormSubmit(formValues) {
+  return api.updateUserAvatar(formValues)
+  .then(user => profile.setUserAvatar(user));
 }
 
 buttonAdd.addEventListener('click', renderCardPopup);
