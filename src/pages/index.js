@@ -44,8 +44,7 @@ const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12',
   headers: {
     authorization: 'bd0f2499-7585-4f83-9366-da3fa3857f94',
-    'Content-Type': 'application/json',
-    'Cache-Control': 'no-cache'
+    'Content-Type': 'application/json'
   }
 });
 
@@ -67,7 +66,7 @@ function renderInitialCards(cards, userId) {
     renderer: (card) => {
       const cardElement = createCard(card, userId);
 
-      initialCards.addItem(cardElement);
+      initialCards.addAppendItem(cardElement);
     }
   }, cardContainer);
 
@@ -76,7 +75,7 @@ function renderInitialCards(cards, userId) {
 
 function createCard(item, userId) {
   const card = new Card(item, '#card', api, {
-    handleCardClick: renderImgPopup,
+    renderImgPopup: renderImgPopup,
     renderConfirmPopup: renderConfirmPopup,
     initialUserId: userId
   });
@@ -93,22 +92,25 @@ const confirmPopup = new PopupWithConfirm(
   popupConfirmWindow, popupConfirmBtn
 );
 
-function renderImgPopup(evt) {
-  imgPopup.open(evt);
+function renderImgPopup(data) {
+  imgPopup.open(data);
 }
 
 function renderConfirmPopup(callback) {
   confirmPopup.open(callback);
 }
 
-function addUserCard(card, container) {
-  container.prepend(card);
-}
-
 function renderUserCard(card, userId) {
-  const cardElement = createCard(card, userId);
+  const userCard = new Section({
+    items: [card],
+    renderer: (card) => {
+      const cardElement = createCard(card, userId);
 
-  addUserCard(cardElement, cardContainer);
+      userCard.addPrependItem(cardElement);
+    }
+  }, cardContainer);
+
+  userCard.renderItems();
 }
 
 const cardPopup = new PopupWithForm(

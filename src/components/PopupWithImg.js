@@ -7,12 +7,12 @@ export default class PopupWithImg extends Popup {
     this._imgTitle = options.imgTitle;
   }
 
-  open(evt) {
-    evt.preventDefault();
+  open(data) {
+    data.evt.preventDefault();
 
-    this._imgElement.src = evt.target.src;
-    this._imgElement.alt = evt.target.alt;
-    this._imgTitle.textContent = evt.target.alt;
+    this._imgElement.src = data.link;
+    this._imgElement.alt = data.name;
+    this._imgTitle.textContent = data.name;
 
     super.open();
   }
