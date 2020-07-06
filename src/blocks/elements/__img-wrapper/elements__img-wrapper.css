@@ -1,8 +1,0 @@
-.elements__img-wrapper {
-  height: 100%;
-  max-height: 17.625rem;
-}
-
-.elements__img-wrapper:focus {
-  outline: none;
-}

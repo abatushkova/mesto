@@ -74,7 +74,8 @@ function renderInitialCards(cards, userId) {
 }
 
 function createCard(item, userId) {
-  const card = new Card(item, '#card', api, {
+  const card = new Card(item, '#card', {
+    api: api,
     renderImgPopup: renderImgPopup,
     renderConfirmPopup: renderConfirmPopup,
     initialUserId: userId
@@ -92,8 +93,8 @@ const confirmPopup = new PopupWithConfirm(
   popupConfirmWindow, popupConfirmBtn
 );
 
-function renderImgPopup(data) {
-  imgPopup.open(data);
+function renderImgPopup(cardLink, cardName) {
+  imgPopup.open(cardLink, cardName);
 }
 
 function renderConfirmPopup(callback) {
