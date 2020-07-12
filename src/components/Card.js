@@ -1,12 +1,12 @@
 export default class Card {
-  constructor(data, cardSelector, api, options) {
-    this._src = data.link;
-    this._name = data.name;
-    this._cardId = data._id;
-    this._cardUserId = data.owner._id;
-    this._likeList = data.likes;
+  constructor(card, cardSelector, options) {
+    this._src = card.link;
+    this._name = card.name;
+    this._cardId = card._id;
+    this._cardUserId = card.owner._id;
+    this._likes = card.likes;
     this._cardSelector = cardSelector;
-    this._api = api;
+    this._api = options.api;
     this._initialUserId = options.initialUserId;
     this._renderConfirmPopup = options.renderConfirmPopup;
     this._renderImgPopup = options.renderImgPopup;
@@ -27,7 +27,6 @@ export default class Card {
 
   _getComponents() {
     this._buttonLike = this._element.querySelector('.elements__like-btn');
-    this._imgWrapper = this._element.querySelector('.elements__img-wrapper');
     this._imgElement = this._element.querySelector('.elements__img');
     this._imgTitle = this._element.querySelector('.elements__title');
     this._likeCounter = this._element.querySelector('.elements__like-counter');
@@ -42,18 +41,14 @@ export default class Card {
       this._buttonDelete.addEventListener('click', this._handleDeleteBtn);
     }
   }
-  
+
   _setEventListeners() {
-    this._imgWrapper.addEventListener('click', this._handleCardClick);
+    this._imgElement.addEventListener('click', this._handleCardClick);
     this._buttonLike.addEventListener('click', this._handleLikeBtn);
   }
 
-  _handleCardClick(evt) {
-    this._renderImgPopup({
-      link: this._src,
-      name: this._name,
-      evt: evt
-    });
+  _handleCardClick() {
+    this._renderImgPopup(this._src, this._name);
   }
 
   _handleLikeBtn() {
@@ -82,9 +77,9 @@ export default class Card {
   _handleConfirmBtn() {
     this._api.deleteCard(this._cardId)
     .then(() => {
+      this._imgElement.removeEventListener('click', this._handleCardClick);
       this._buttonLike.removeEventListener('click', this._handleLikeBtn);
       this._buttonDelete.removeEventListener('click', this._handleDeleteBtn);
-      this._imgWrapper.removeEventListener('click', this._handleCardClick);
 
       this._element.remove();
     })  
@@ -92,7 +87,7 @@ export default class Card {
   }  
 
   _setLikeBtnActive() {
-    this._likeList.forEach(item => {
+    this._likes.forEach(item => {
       if (item._id === this._initialUserId) {
         this._buttonLike.classList.add('elements__like-btn_active');
       }
@@ -106,11 +101,10 @@ export default class Card {
     this._setLikeBtnActive();
     this._setEventListeners();
 
-    this._imgWrapper.href = this._src;
     this._imgElement.src = this._src;
     this._imgElement.alt = this._name;
     this._imgTitle.textContent = this._name;
-    this._likeCounter.textContent = this._likeList.length;
+    this._likeCounter.textContent = this._likes.length;
 
     return this._element;
   }
