@@ -4,7 +4,7 @@ export default class Card {
     this._name = card.name;
     this._cardId = card._id;
     this._cardUserId = card.owner._id;
-    this._likeList = card.likes;
+    this._likes = card.likes;
     this._cardSelector = cardSelector;
     this._api = options.api;
     this._initialUserId = options.initialUserId;
@@ -52,32 +52,22 @@ export default class Card {
   }
 
   _handleLikeBtn() {
-    const method = (!this._buttonLike.classList.contains('elements__like-btn_active'))
-      ? 'putLike'
-      : 'deleteLike';
-    console.log(method);
-    this._handleLikeCounter(method);
-    // if (!this._buttonLike.classList.contains('elements__like-btn_active')) {
-    //   this._api.putLike(this._cardId)
-    //   .then(item => item.likes.length)
-    //   .then(this._handleLikeCounter.bind(this))
-    //   .catch(err => console.error(err));
-    // } else {
-    //   this._api.deleteLike(this._cardId)
-    //   .then(item => item.likes.length)
-    //   .then(this._handleLikeCounter.bind(this))
-    //   .catch(err => console.error(err));
-    // }
+    if (!this._buttonLike.classList.contains('elements__like-btn_active')) {
+      this._api.putLike(this._cardId)
+      .then(item => item.likes.length)
+      .then(this._handleLikeCounter.bind(this))
+      .catch(err => console.error(err));
+    } else {
+      this._api.deleteLike(this._cardId)
+      .then(item => item.likes.length)
+      .then(this._handleLikeCounter.bind(this))
+      .catch(err => console.error(err));
+    }
   }
 
-  _handleLikeCounter(method) {
-    this._api.method(this._cardId)
-    .then(item => item.likes.length)
-    .then(this._handleLikeCounter.bind(this))
-    .catch(err => console.error(err));
-
-    // this._likeCounter.textContent = likes;
-    // this._buttonLike.classList.toggle('elements__like-btn_active');
+  _handleLikeCounter(likes) {
+    this._likeCounter.textContent = likes;
+    this._buttonLike.classList.toggle('elements__like-btn_active');
   }
 
   _handleDeleteBtn() {
@@ -97,7 +87,7 @@ export default class Card {
   }  
 
   _setLikeBtnActive() {
-    this._likeList.forEach(item => {
+    this._likes.forEach(item => {
       if (item._id === this._initialUserId) {
         this._buttonLike.classList.add('elements__like-btn_active');
       }
@@ -114,7 +104,7 @@ export default class Card {
     this._imgElement.src = this._src;
     this._imgElement.alt = this._name;
     this._imgTitle.textContent = this._name;
-    this._likeCounter.textContent = this._likeList.length;
+    this._likeCounter.textContent = this._likes.length;
 
     return this._element;
   }
