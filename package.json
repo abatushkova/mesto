@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "core-js": "^1.2.7",
+    "elliptic": "^6.5.3",
     "lodash": "^4.17.19"
   }
 }
