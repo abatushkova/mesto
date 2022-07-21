@@ -39,9 +39,3 @@ Design mockup is created with Figma by Praktikum specialists.
 - improve accessibility of popup
 - add .webp image format
 - create amp and turbo pages
-
-## Credits
-Alena Batushkova - junior web developer
-
-## Links
-[Mesto website](https://abatushkova.github.io/mesto)
